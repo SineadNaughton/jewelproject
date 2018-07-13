@@ -1,6 +1,6 @@
 
 
-
+<%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
 
 <p id="notice"><%= notice %></p>
 
@@ -16,7 +16,7 @@
           <!--product info-->
           <div class="col-sm-4"><!-- container to hold each product item-->
             <h3><%= item.title %></h3><!-- render title-->
-            <%= link_to (image_tag item.image_url, :class => "item_image"), item %>
+            <%= image_tag item.image.url (:medium) %>
             <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
         
              <!--product actions-->
@@ -34,7 +34,7 @@
     
   <br>
 
-<%= link_to 'New Product', new_item_path, :class => "btn btn-default", :role => "button" %>
+<%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
 </div>
   
 

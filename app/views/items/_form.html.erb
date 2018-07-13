@@ -1,17 +1,19 @@
-<%= form_with(model: item, local: true) do |form| %>
+<%# <%= form_with(model: item, local: true) do |form| %>
+<%# code added to make paperclip image upload work with form. Multipart is an image%>
+<%= form_for @item, html: { multipart: true} do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
       <ul>
-      <% item.errors.full_messages.each do |message| %>
+      <% @item.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
@@ -54,6 +56,12 @@
   <div class="field">
     <%= form.label :quantity_sold %>
     <%= form.number_field :quantity_sold %>
+  </div>
+ 
+ <%# a field to allow a file upload for image%> 
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class: "form-control" %>
   </div>
 
   <div class="actions">

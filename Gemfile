@@ -35,12 +35,16 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
+#bootstrap gem 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
+
+
+#for file uploads
+gem 'paperclip', '~> 6.0'
 
 
 group :development, :test do
