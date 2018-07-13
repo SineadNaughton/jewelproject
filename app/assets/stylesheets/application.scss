@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
+
  @import "bootstrap";
 
 
@@ -22,6 +22,14 @@
 }
 
 
+
+a:visited{
+    text-decoration: none;
+    color: white;
+}
+a{
+    color:white;
+}
 
 
 

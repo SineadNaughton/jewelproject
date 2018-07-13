@@ -1,51 +1,43 @@
 
 
-<%= link_to 'New Item', new_item_path %>
+
 
 <p id="notice"><%= notice %></p>
 
-  <div class="fluid-container"><!-- container to hold all products-->
+  <div class="container-fluid"><!-- container to hold all products-->
     
     <h1>Products</h1>
     <div class="row">
-    
-    <% @items.each do |item| %>
-    <!--product info-->
-    <div class="col-sm-4"><!-- container to hold each product item-->
-      <h1><%= item.title %></h1><!-- render title-->
-      <%= link_to (image_tag item.image_url, :class => "item_image"), item %>
-      <p>Description: <%= item.description %></p>
-      <p>
-        Price <%= number_to_currency(item.price, :unit => "€") %>
-      <br>
-        Collection: <%= item.collection %>
-      </p>
-
-
-       <!--product actions-->
-       <p>
-      
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+         <% @items.each do |item| %>
+          <!--product info-->
+          <div class="col-sm-4"><!-- container to hold each product item-->
+            <h3><%= item.title %></h3><!-- render title-->
+            <%= link_to (image_tag item.image_url, :class => "item_image"), item %>
+            <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
+        
+             <!--product actions-->
              <!-- button to add item to cart -->
-    <a href = "/cart/<%= item.id %>" class="btn btn-default">Add to cart</a>
-
-         <%= link_to 'Show', item, :class => "btn btn-default", :role => "button" %>
-         
+            <a href = "/cart/<%= item.id %>" class="btn btn-secondary">Add to cart</a>
   
-      
-		    <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-default", :role => "button" %>
-        <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default", :role => "button" %>
-			
-
-     
-      </p>
+           <%= link_to 'Show', item, :class => "btn btn-secondary", :role => "button" %>
+  		    <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-secondary", :role => "button" %>
+          <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
+        </div>
+      <% end %> 
       </div>
-      </div>
-    <% end %>
     </div>
-  
-
-
-<br>
+  </div>
+    
+  <br>
 
 <%= link_to 'New Product', new_item_path, :class => "btn btn-default", :role => "button" %>
+</div>
+  
+
+
+
 
