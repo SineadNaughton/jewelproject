@@ -25,12 +25,17 @@
 
 a:visited{
     text-decoration: none;
-    color: white;
-}
-a{
-    color:white;
+ 
 }
 
+
+
+
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    color: white;
+}
 
 
 
