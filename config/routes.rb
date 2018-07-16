@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get '/cart/clear' => 'cart#clear'
   get '/cart/:id' => 'cart#add'
   get '/cart/remove/:id' => 'cart#remove'
+  get '/cart/updatequantity/:id' => 'cart#update_quantity'
+  get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
 end

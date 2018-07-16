@@ -1,4 +1,7 @@
 
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 
 <%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
 

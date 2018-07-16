@@ -1,4 +1,9 @@
-<p id="notice"><%= notice %></p>
+
+<p>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+</p>
 
 <div class="container-fluid"> 
   <div class="row">
@@ -19,6 +24,14 @@
         <strong>Collection:</strong>
         <%= @item.collection %>
       </p>
+      
+        <%= form_tag("/cart/addbyquantity/#{@item.id}", :method => "get") do %>
+        <%= label_tag(:qty, "Qty: ") %>
+        <%= text_field_tag(:qty, 1) %>
+        <%= submit_tag("Add to Cart") %>
+        <% end %>
+      
+      
 
       <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-secondary" %> 
       <%= link_to 'Back', items_path, :class => "btn btn-secondary" %>

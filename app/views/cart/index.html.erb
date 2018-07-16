@@ -1,3 +1,7 @@
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
 <% if @cart.empty? %>
     <p>There are no items in your cart</p>
 <% end %>
@@ -11,7 +15,7 @@
         <th></th>
         <th>Item</th>
         <th>Price</th>
-        <th>Qty</th>        
+        <th>Qty</th>
         <th>Subtotal</th>
       </tr>
     </thead>
@@ -25,7 +29,13 @@
         <td><%= image_tag item.image.url (:thumb) %></td>
         <td><%= link_to item.title, item %></td>
         <td><%= number_to_currency(item.price, :unit => "€") %> </td>
-        <td><%= quantity %></td>
+        <td>
+            <%= form_tag("/cart/updatequantity/#{item.id}", :method => "get") do %>
+            <%= label_tag(:qty, "Qty: ") %>
+            <%= text_field_tag(:qty, quantity) %>
+            <%= submit_tag("Update") %>
+            <% end %>
+        </td>
         <td><%= number_to_currency(quantity * item.price, :unit => "€") %></td>
         <td><a href="/cart/remove/<%= item.id %>">Remove</a></td>
             
@@ -49,7 +59,7 @@
   </table>
 
 
-    <a href="/cart/clear" class="button">Clear Cart</a>
-    <a href="/checkout" class="button">Checkout</a>
+    <a href="/cart/clear" class="btn btn-secondary">Clear Cart</a>
+    <a href="/checkout" class="btn btn-secondary">Checkout</a>
 </div>
 
