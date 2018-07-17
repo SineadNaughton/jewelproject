@@ -1,5 +1,5 @@
 class CartController < ApplicationController
- 
+ before_action :authenticate_user
 
 #method to add item to a cart and create a cart if needed
  def add
@@ -108,6 +108,16 @@ end
       @cart = {}
     end
   end
+  
+   def cart_header_info
+    if session[:cart] then
+      @cart = session[:cart]
+    else
+      @cart = {}
+    end
+   end
+  
+  
  
   
 end

@@ -1,0 +1,7 @@
+            <% total = 0 %>
+            <% session[:cart].each do |id, quantity| %>
+            <% item = Item.find_by_id(id) %>
+            <% total += quantity * item.price %>
+            <% end %>
+            
+            <p><%= number_to_currency(total, :unit => "€") %></p>
