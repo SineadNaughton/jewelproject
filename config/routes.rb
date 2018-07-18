@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {
+   :registration => "users/registration",
+    :sessions => "users/sessions",
+    :passwords => "users/passwords",
+    :confirmation => "users/confriamtions" }
+  devise_scope :users do
+    get 'signup', to: 'users/regisatrations#new'
+    get 'signin', to: 'users/session#new'
+    delete 'signout', to: 'users/session#destroy'
+  end
+  
   
   resources :items
   root 'static_pages#home'

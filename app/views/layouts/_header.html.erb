@@ -9,8 +9,8 @@
         <div classs="col-sm-4">
           <ul>
             <% if user_signed_in? %>
-            <li class="list-inline-item"><%=link_to  (current_user.email + "'s Account"), destroy_user_session_path %></li>
-            <li class="list-inline-item"><%=link_to 'Log Out', destroy_user_session_path, :method => :delete %></li>
+            <li class="list-inline-item"><%=link_to  ((current_user.username || "Customer") + "'s Account"), destroy_user_session_path, :method => :delete %></li>
+            <li class="list-inline-item"><%= link_to 'Log Out', destroy_user_session_path, :method => :delete %></li>
             
             <% else %>
             <li class="list-inline-item"><%=link_to 'Register', new_user_registration_path %></li>
@@ -18,7 +18,7 @@
             <% end %>
             
             <li class="list-inline-item"><%=link_to 'Cart', '/cart' %></li>
-            <%#<%= render :partial => 'cart/total', :controller => "cart", :action => "cart_header_info" %>
+            <%= render :partial => 'cart/total', :controller => "cart", :action => "cart_header_info" %>
           </ul>
         </div>
     

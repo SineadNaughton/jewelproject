@@ -1,7 +1,8 @@
 class CartController < ApplicationController
- before_action :authenticate_user
+ before_action :authenticate_user!
 
-#method to add item to a cart and create a cart if needed
+
+#method to add item to the cart from teh item index page - always adds 1
  def add
    #get product id
    id = params[:id]
@@ -25,7 +26,7 @@ class CartController < ApplicationController
    
  end
  
-#method to add item to a cart and create a cart if needed
+#method to add item to a cart from teh show item page - qty must be specified
  def add_by_quantity
    #get product id
    id = params[:id]
@@ -57,7 +58,7 @@ class CartController < ApplicationController
         
    end
  end
- 
+ #method to change teh quantity of a particular item in the cart
  def update_quantity
      id = params[:id]
      cart = session[:cart]
