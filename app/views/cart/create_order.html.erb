@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <div class="row">
+        <h1>Thank You!</h1>
+    </div>
+    <div class="row">
+        <p>Thans for your order, you'll shortly recive an email</p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <table class="table">
+            <tr>
+                <% @orders.limit(1).order(id: :desc).each do |order| %>
+                <td>
+                   Order Reference: <%= order.id %>
+                </td>
+                <% end %>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <table class="table">
+            <% @total = 0 %>
+            <% @orderitems.each do |id, quantity| %>
+            <% item = Orderitem.find_by_id(id) %>
+            <tr>
+                <td><%= item.title %></td>
+                <td><%= item.quantity %></td>
+                <td><%= number_to_currency(item.price, :unit => "€") %></td>
+                <td><%= number_to_currency(item.price * item.quantity, :unit => "€") %></td>
+            </tr>
+            <% gTotal = (item.quantity * item.price) %>
+            <% @total += gTotal %>
+            <% end %>
+            <% shipping = 5.95 %>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Order Total: <%= number_to_currency(@total, :unit => "€") %></td>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Shipping: <%= number_to_currency(shipping, :unit => "€") %></td>
+            </tr>
+                <% @overall = @total + shipping %>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Grand Total: <%= number_to_currency(@overall, :unit => "€") %></td>
+            </tr>
+        </table>
+    </div>
+    
+</div>

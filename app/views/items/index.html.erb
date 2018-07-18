@@ -1,11 +1,4 @@
-
-<% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
-<% end %>
-
 <%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
-
-<p id="notice"><%= notice %></p>
 
   <div class="container-fluid"><!-- container to hold all products-->
     

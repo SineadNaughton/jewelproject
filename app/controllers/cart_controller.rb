@@ -109,13 +109,33 @@ end
       @cart = {}
     end
   end
-  
+  #method to display cart summary info in header - renders _total partial
    def cart_header_info
     if session[:cart] then
       @cart = session[:cart]
     else
       @cart = {}
     end
+   end
+   
+   def create_order
+       #get user, build order, save order
+       @user = User.find(current_user.id)
+       @order = @user.orders.build(:order_date => DateTime.now, :status => "Pending")
+       @order.save
+       #get cart (it's either session or empty),loop through, get items from item table, and make cart item an orderitem
+       @cart = session[:cart] || {}
+       @cart.each do | id, quantity |
+           item = Item.find_by_id(id)
+           @orderitem = @order.orderitems.build(:item_id => item.id, :title => item.title, :description => item.description, :quantity => quantity, :price => item.price)
+           @orderitem.save
+       end
+       @orders = Order.all
+       @orderitems = Orderitem.where(order_id: Order.last)
+       
+
+       
+
    end
   
   

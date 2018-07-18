@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {
+  #orders routes
+  resources :orders do
+    resources:orderitems
+  end
+  
+  
+  #user routes
+  devise_for :users do
+    resources:orders
+  end
+  devise_for :controllers => {
    :registration => "users/registration",
     :sessions => "users/sessions",
     :passwords => "users/passwords",
@@ -12,15 +22,17 @@ Rails.application.routes.draw do
   
   
   resources :items
+  
+  #static page roots
   root 'static_pages#home'
   
   get '/about' => 'static_pages#about'
   get '/contact' => 'static_pages#contact'
   get '/delivery' => 'static_pages#delivery'
   
+  #cart routes
     get 'cart/index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
- #cart routes
+ 
   get '/cart' => 'cart#index'
   
   get '/cart/clear' => 'cart#clear'
@@ -29,5 +41,7 @@ Rails.application.routes.draw do
   get '/cart/updatequantity/:id' => 'cart#update_quantity'
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
   get '/cart/total' => 'cart#cart_header_info'
-
+  get '/checkout' => 'cart#create_order'
+ # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+ 
 end

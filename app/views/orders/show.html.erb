@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <p><strong>Order date:</strong><%= @order.order_date %></p>
+  </div>
+  <div class="row">
+    <p><strong>User:</strong><%= @order.user %></p>
+  </div>
+  <div class="row">
+    <p><strong>Status:</strong><%= @order.status %></p>
+  </div>
+  <div class="row">
+    <%= link_to 'Edit', edit_order_path(@order), :class => "btn btn-secondary" %> 
+    <%= link_to 'Back', orders_path, :class => "btn btn-secondary" %>
+  </div>
+
+
+<!--show items in the order-->
+
+  <div class="row">
+    <h1>Items in this order</h1>
+  </div>
+  <div class="row">
+    <table class ="table">
+      <% @orderitems.each do |orderitem| %>
+      <tr>
+        <td><%= orderitem.title %></td>
+        <td><%= orderitem.quantity %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="row">
+    <!--button link to change status method-->
+    <a href="/shipped/<%= @order.id %>" class="btn btn-secondary">Mark as Shipped</a>
+  </div>
+</div>

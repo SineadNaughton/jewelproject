@@ -1,0 +1,14 @@
+<footer class="foot">
+<h1>Im the Footer</h1>
+
+<a href="/orders" class="btn btn-secondary">View Orders</a>
+
+
+
+<% if user_signed_in? %>
+<%= link_to 'Update Profile', edit_user_registration_path, :class => "btn btn-secondary" %>
+
+
+<% end %>
+
+</footer>
