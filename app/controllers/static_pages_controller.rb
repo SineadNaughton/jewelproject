@@ -12,4 +12,7 @@ class StaticPagesController < ApplicationController
 
   def delivery
   end
+  
+
+
 end

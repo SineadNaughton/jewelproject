@@ -18,8 +18,11 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/regisatrations#new'
     get 'signin', to: 'users/session#new'
     delete 'signout', to: 'users/session#destroy'
-  end
+    
   
+  end
+  post '/search' => 'items#search'
+  get '/search' => 'items#search'
   
   resources :items
   
@@ -29,6 +32,7 @@ Rails.application.routes.draw do
   get '/about' => 'static_pages#about'
   get '/contact' => 'static_pages#contact'
   get '/delivery' => 'static_pages#delivery'
+ 
   
   #cart routes
     get 'cart/index'
@@ -42,6 +46,13 @@ Rails.application.routes.draw do
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
   get '/cart/total' => 'cart#cart_header_info'
   get '/checkout' => 'cart#create_order'
- # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/useraccount/userorders' => 'useraccount#userorders'
+  
+  
+  get '/useraccount/welcome' => 'useraccount#welcome'
+
  
+ # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
 end

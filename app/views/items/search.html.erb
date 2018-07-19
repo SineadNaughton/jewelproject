@@ -1,0 +1,37 @@
+
+<!-- if there are no results-->
+<% if @items.length == 0 %>  
+    <h2>no items found try searching again</h2>
+
+
+<!-- if there are results-->
+<% else %>
+<div class="container-fluid"><!-- container to hold all products-->
+    
+    <h1>Products</h1>
+    <div class="row">
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+         <% @items.each do |item| %>
+          <!--product info-->
+          <div class="col-med-4" "col-sm-8"><!-- container to hold each product item-->
+            <h4><%= item.title %></h4><!-- render title-->
+            <%= image_tag item.image.url (:medium) %>
+            <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
+        
+             <!--product actions-->
+             <!-- button to add item to cart -->
+            <a href = "/cart/<%= item.id %>" class="btn btn-secondary">Add to cart</a>
+  
+           <%= link_to 'Show', item, :class => "btn btn-secondary", :role => "button" %>
+  		    <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-secondary", :role => "button" %>
+          <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
+        </div>
+      <% end %> 
+      </div>
+    </div>
+  </div>
+    
+<% end %>

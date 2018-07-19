@@ -1,6 +1,8 @@
-<p id="notice"><%= notice %></p>
+<%= @myprop || "NOO" %>
 
-<h1>Orders</h1>
+<% if @userorders %>
+
+<h1><%=current_user.username%>'s Orders</h1>
 
 <table>
   <thead>
@@ -14,7 +16,7 @@
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <% @userorders.each do |order| %>
       <tr>
         <td><%= order.order_date %></td>
         <td><%= order.user %></td>
@@ -27,7 +29,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+<% end %>

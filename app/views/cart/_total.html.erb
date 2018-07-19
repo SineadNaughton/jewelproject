@@ -1,11 +1,16 @@
-            <% total = 0 %>
-            <% totalitems = 0%>
-            <% session[:cart].each do |id, quantity| %>
-            <% item = Item.find_by_id(id) %>
-            <% total += quantity * item.price %>
-            <% totalitems += quantity %>
             
-            <% end %>
-            <%= totalitems %>
-            <%= number_to_currency(total, :unit => "€") %>
-            
+<%if session[:cart] %>
+    <% total = 0 %>
+    <% totalitems = 0%>
+    <% session[:cart].each do |id, quantity| %>
+    <% item = Item.find_by_id(id) %>
+    <% total += quantity * item.price %>
+    <% totalitems += quantity %>
+    
+    <% end %>
+    <%= totalitems %>
+    <%= number_to_currency(total, :unit => "€") %>
+<% else %>
+    <%= totalitems = 0 %>
+    <%= number_to_currency(0, :unit => "€") %>
+<% end %>

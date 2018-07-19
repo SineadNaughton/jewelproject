@@ -36,6 +36,12 @@ class ItemsController < ApplicationController
       end
     end
   end
+  
+  def search
+    input = "%#{params[:input]}%"
+    @items = Item.where("title like ?", input)
+  end
+
 
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json

@@ -1,7 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="row justify-content-center">
+    <%= render 'useraccount/useraccountnav'%> 
+</div>
 
-<h1>Orders</h1>
 
+<div class="row justify-content-center">
+<% if @orders %>
+
+<h1><%=current_user.username%>'s Orders</h1>
+</div>
+<div class="row justify-content-center">
 <table>
   <thead>
     <tr>
@@ -17,17 +24,13 @@
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.order_date %></td>
-        <td><%= order.user %></td>
         <td><%= order.status %></td>
         <td><%= order.order_total %></td>
         <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+<% end %>
+</div>

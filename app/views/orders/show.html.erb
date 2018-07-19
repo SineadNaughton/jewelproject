@@ -21,12 +21,25 @@
   </div>
   <div class="row">
     <table class ="table">
+      <% total = 0 %>
       <% @orderitems.each do |orderitem| %>
       <tr>
         <td><%= orderitem.title %></td>
+        <td><%= number_to_currency(orderitem.price, :unit => "€") %></td>
         <td><%= orderitem.quantity %></td>
+        <% subtotal= orderitem.price * orderitem.quantity %>
+        <td><%= number_to_currency(subtotal, :unit => "€") %></td>
+        <%= total += orderitem.price * orderitem.quantity %>
+        
+        
       </tr>
       <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Order Total: <%= number_to_currency(total, :unit => "€") %></td>
+      </tr>
     </table>
   </div>
   <div class="row">

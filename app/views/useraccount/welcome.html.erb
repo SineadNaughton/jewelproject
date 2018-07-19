@@ -1,0 +1,21 @@
+<div class="container-fluid ">
+    <div class="row justify-content-center">
+       <%= render 'useraccount/useraccountnav'%> 
+    </div>
+    <div class="row justify-content-center">
+        <h1>Welcome <%=current_user.username%></h1>
+        
+        <%# if request.query_parameters["action"] == "orders" %>
+        <%#= render :partial => 'orders/user_orders', :controller => "orders", :action => "orders_user_orders" %>  
+        <%# end %>
+        <%# if request.query_parameters["action"] == "edit" %>
+        <%#= render :partial => 'users/registrations/edit', :controller => "users/registrations", :action => "edit" %>
+        <%#= render :partial => 'cart/total', :controller => "cart", :action => "cart_header_info" %>
+        <%# end %>
+    
+    </div>
+    <div class="row">
+        <%# render recently viewed%>
+    </div>
+        
+</div>

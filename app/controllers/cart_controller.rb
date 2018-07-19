@@ -121,7 +121,8 @@ end
    def create_order
        #get user, build order, save order
        @user = User.find(current_user.id)
-       @order = @user.orders.build(:order_date => DateTime.now, :status => "Pending")
+        ordertotal = cart_total
+       @order = @user.orders.build(:order_date => DateTime.now, :status => "Pending", :order_total => ordertotal)
        @order.save
        #get cart (it's either session or empty),loop through, get items from item table, and make cart item an orderitem
        @cart = session[:cart] || {}
@@ -129,6 +130,7 @@ end
            item = Item.find_by_id(id)
            @orderitem = @order.orderitems.build(:item_id => item.id, :title => item.title, :description => item.description, :quantity => quantity, :price => item.price)
            @orderitem.save
+           
        end
        @orders = Order.all
        @orderitems = Orderitem.where(order_id: Order.last)
@@ -137,6 +139,29 @@ end
        
 
    end
+ 
+   
+   def cart_total
+       ordertotal = 0
+       if session[:cart]
+        @cart = session[:cart]
+        @cart.each do |id, quantity|
+            item = Item.find_by_id(id)
+            ordertotal += item.price * quantity
+        end
+        ordertotal
+       end
+       
+           
+   end
+   
+   def welcome
+       @cart = session[:cart]
+   end
+
+
+
+   
   
   
  

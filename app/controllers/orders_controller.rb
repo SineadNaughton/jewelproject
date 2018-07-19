@@ -7,6 +7,10 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
 
+  def user_orders
+   # @orders = Order.where(user_id: current_user.id)
+  end
+  
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -70,6 +74,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_date, :user_id, :status)
+      params.require(:order).permit(:order_date, :user_id, :status, :order_total, :action)
     end
 end
