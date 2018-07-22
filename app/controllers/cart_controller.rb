@@ -41,10 +41,10 @@ class CartController < ApplicationController
    
    #put item in cart
    qty = "#{params[:qty]}".to_i
-   @item = Item.find(params[:id])
-   @qty_instock = @item.quantity_instock
+   item = Item.find(params[:id])
+   qty_instock = item.quantity_instock
    
-   if @qty_instock >= qty
+   if qty_instock >= qty
    
         if cart[id]
              cart[id] = cart[id] + qty
@@ -68,7 +68,7 @@ class CartController < ApplicationController
      @qty_instock = @item.quantity_instock
      
      if @qty_instock < qty
-        cart[id] = 1
+        cart[id] = cart[id]
         flash[:error] = "There are not enough items in stock!"
      else
         cart[id] = qty
@@ -109,6 +109,7 @@ end
       @cart = {}
     end
   end
+  
   #method to display cart summary info in header - renders _total partial
    def cart_header_info
     if session[:cart] then

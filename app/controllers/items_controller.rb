@@ -4,7 +4,16 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    action = params[:kind]
+    if action=="newin" then
+      since = Date.today-1
+      @items = Item.where("created_at > ?", since)
+    else 
+    #if params["action"]
+    #end
+    #@items = Item.all
+    @items = Item.where("category like ? OR collection like ?", action, action)
+    end
   end
 
   # GET /items/1
@@ -41,6 +50,32 @@ class ItemsController < ApplicationController
     input = "%#{params[:input]}%"
     @items = Item.where("title like ?", input)
   end
+  
+  def filter
+    material = "'%#{params[:material]}%'"
+    collection = "'%#{params[:collection]}%'"
+    category = "'%#{params[:category]}%'"
+    query = ""
+    if material != nil
+      query += " material like #{material}"
+    end
+    if 
+      collection != nil
+      query +=" AND collection like #{collection}"
+    end
+    if 
+      category != nil
+      query +=" AND category like #{category}"
+    end
+    
+    @items = Item.where(query)
+      
+    
+    #@item = Item.where("1=1")
+    #@items = Item.where("material like ? OR collection like ? OR category like ?", material, collection, category)
+  end
+  
+     
 
 
   # PATCH/PUT /items/1

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   end
   post '/search' => 'items#search'
   get '/search' => 'items#search'
+  post '/filter' => 'items#filter'
+  get '/filter' => 'items#filter'
   
   resources :items
   
@@ -50,6 +52,8 @@ Rails.application.routes.draw do
   
   
   get '/useraccount/welcome' => 'useraccount#welcome'
+  
+
 
  
  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

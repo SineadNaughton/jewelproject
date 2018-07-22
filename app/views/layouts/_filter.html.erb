@@ -1,0 +1,26 @@
+<%= form_tag("/filter", :method => "post") do %>
+<%#= label_tag(:material, "Material:" ) %>
+<%#= select_tag(:material, options_for_select([['Gold', 'Gold'], ['Silver', 'Silver'], ['Rose Gold', 'Rose Gold']])) %>
+<%#= label_tag(:collection, "Collection:" ) %>
+<%#= select_tag(:collection, options_for_select([['Bohemian', false ], ['Roman', false ], ['Gem', false ]])) %><br>
+<%= label_tag(:category, "Category:" ) %><br>
+Necklace<%= check_box_tag :category, 'Necklace', false  %><br>
+Bracelet<%= check_box_tag :category, 'Bracelet', false  %><br>
+Ring<%= check_box_tag :category, 'Ring', false  %><br>
+
+<%= label_tag(:material, "Material:" ) %><br>
+
+Gold<%= check_box_tag "material[]", 'Gold', false %><br>
+Silver<%= check_box_tag "material[]", 'Silver', false %><br>
+Rose Gold<%= check_box_tag "material[]", 'Rose Gold', false  %><br>
+
+<%= label_tag(:collection, "Collection:" ) %><br>
+Bohemian<%= check_box_tag :collection, 'Bohemian', false %><br>
+Roman<%= check_box_tag :collection, 'Roman', false %><br>
+Gem<%= check_box_tag :collection, 'Gem', false  %><br>
+
+
+
+
+<%= submit_tag("Filter") %><%# render a form in ruby that uses search route and post mthod%>
+<% end %>

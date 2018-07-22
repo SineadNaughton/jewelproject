@@ -19,6 +19,10 @@
         <strong>Collection:</strong>
         <%= @item.collection %>
       </p>
+           <p>
+      <strong>Collection:</strong>
+        <%= @item.material %>
+      </p>
       
         <%= form_tag("/cart/addbyquantity/#{@item.id}", :method => "get") do %>
         <%= label_tag(:qty, "Qty: ") %>

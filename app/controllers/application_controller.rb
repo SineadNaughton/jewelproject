@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-
+  #protect_from_forgery with: :exception #CSRF protection - use with token hidden for dev
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
