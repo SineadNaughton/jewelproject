@@ -52,6 +52,9 @@ class ItemsController < ApplicationController
   end
   
   def filter
+   # material = 
+    #material.each do |type|
+      
     material = "'%#{params[:material]}%'"
     collection = "'%#{params[:collection]}%'"
     category = "'%#{params[:category]}%'"

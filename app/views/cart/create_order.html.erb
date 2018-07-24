@@ -1,26 +1,12 @@
 <div class="container-fluid">
     <div class="row">
-        <h1>Thank You!</h1>
+        <h1>You're nearly done!</h1>
     </div>
     <div class="row">
-        <p>Thans for your order, you'll shortly recive an email</p>
+        <p>Just tell us where to send you rorder and make payment</p>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <table class="table">
-            <tr>
-                <% @orders.limit(1).order(id: :desc).each do |order| %>
-                <td>
-                   Order Reference: <%= order.id %>
-                </td>
-                <% end %>
-            </tr>
-        </table>
-    </div>
-    
-</div>
 
 <div class="container-fluid">
     <div class="row">
@@ -56,7 +42,48 @@
                 <td></td>
                 <td>Grand Total: <%= number_to_currency(@overall, :unit => "€") %></td>
             </tr>
-        </table>
+            <tr>
+                <td>
+                <!-- obutton to bring to payment-->
+                
+                <!--action will post to paypal, can intercahnge own routes-->
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                
+                  <!-- Identify your business so that you can collect the payments. -->
+                  
+                
+                  <!-- Specify a Buy Now button. -->
+                  <input type="hidden" name="cmd" value="_xclick">
+                
+                  <!-- Specify details about the item that buyers will purchase. -->
+                   <input type="hidden" name="business" value="sinead.m.naughton-facilitator@gmail.com">
+                   <!-- pass order reference. -->
+                  <input type="hidden" name="item_name" value="JEWEL order No: <%= @order %> ">
+                  <!-- pass paymetn amount. -->
+                  <input type="hidden" name="amount" value="<%= @overall %>">
+                  <!-- pass paymetn amount. -->
+                  <input type="hidden" name="currency_code" value="EUR">
+                  
+                  <!-- new hidden field (check correct name), call the url, call controller method, changes staus to paid   -- -->
+                  <input type="hidden" name="notify_url" value="https://6d4f42015a9d4066b7c1e12ffb1d73c4.vfs.cloud9.us-east-2.amazonaws.com/payment">
+                  
+                  <!-- new hidden field (check correct name), display page to the person. Don't return to url or the method might be called without payment going through   -- -->
+                  <input type="hidden" name="return" value="https://6d4f42015a9d4066b7c1e12ffb1d73c4.vfs.cloud9.us-east-2.amazonaws.com/">
+                
+                  <!-- Image of the button - change how it looks - Display the payment button. -->
+                  <input type="image" name="submit" border="0"
+                  class="btn btn-secondary"
+                  alt="Buy Now">
+                
+                
+                </form>
+                  <!-- name is hidden file dvalue, there's a list of them on paypal
+                  When someone presses a button it passes info to the hidden field and it changes the value for the field
+                  change value to the info you want passed. 
+                  
+                  payment failure page if payment not gone through--> 
+                  </td>
+                </tr>
+            </table>
     </div>
-    
 </div>

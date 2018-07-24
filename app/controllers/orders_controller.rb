@@ -25,6 +25,24 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
+  
+  
+  
+    #method for payment
+  def pay
+    #instance var called @order and equal it to the last order in the Order table can also filter by param as above
+    @order = Order.last
+    #update the attribute
+    @order.update_attribute(:status, "Paid by User: #{current_user.username}")
+  end
+  
+  def shipped
+        #instance variable to give it teh value of current order id
+    #Order.where(order_id: params[:id]).update_all(:status "Dispatched") remove this code
+    #update the attribute remove this code
+   @order.update_attribute(:status, "Dispatched")
+  User.where(name: "Robbie").update_all(name: "Rob")
+  end
 
   # POST /orders
   # POST /orders.json

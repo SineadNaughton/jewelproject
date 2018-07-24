@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'wishlistitems/add'
+  get 'wishlistitems/remove'
+  get 'wishlistitems/index'
   #orders routes
   resources :orders do
     resources:orderitems
@@ -53,6 +56,13 @@ Rails.application.routes.draw do
   
   get '/useraccount/welcome' => 'useraccount#welcome'
   
+  post '/wishlist/add/:id' => 'wishlistitems#add'
+  get '/wishlist/add/:id' => 'wishlistitems#add'
+  get '/wishlist' => 'wishlistitems#index'
+  delete '/wishlist/:id' => 'wishlistitems#destroy'
+  
+  get '/payment' => 'orders#pay'
+  get '/shipped/:id' => 'orders#shipped'
 
 
  

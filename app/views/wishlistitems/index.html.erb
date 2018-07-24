@@ -1,0 +1,41 @@
+
+<% if @wishlistitems.empty? %>
+    <p>There are no items in your wishlist</p>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <h2><%=current_user.username%>'s Wishlist</h2>
+              
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Item</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% @wishlistitems.each do |wishlistitem| %>
+      <tr>
+      
+        <td><%= image_tag wishlistitem.item.image.url (:thumb) %></td>
+        <td><%= wishlistitem.item.title %></td>
+        <td><%= wishlistitem.item.price %></td>
+        
+
+
+    
+        <td><%= link_to 'Remove', wishlist_path(@wishlistitem), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %></td>
+        <td><a href = "/cart/<%= wishlistitem.item.id %>" class="btn btn-secondary">Add to cart</a></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Wishlist Item', newwishlist_item_path %>
