@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    @bestsellingitems = Item.all
   end
 
   def about

@@ -29,7 +29,12 @@ Rails.application.routes.draw do
   post '/filter' => 'items#filter'
   get '/filter' => 'items#filter'
   
-  resources :items
+  resources :items do
+    resources :reviews
+  end
+  
+  get '/items/bestselling' => 'items#bestselling'
+  
   
   #static page roots
   root 'static_pages#home'
@@ -50,11 +55,13 @@ Rails.application.routes.draw do
   get '/cart/updatequantity/:id' => 'cart#update_quantity'
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
   get '/cart/total' => 'cart#cart_header_info'
-  get '/checkout' => 'cart#create_order'
+  get '/checkout' => 'cart#index'
+  post '/checkout' => 'cart#create_order'
+  
+ #get '/useraccount/userorder/:id' => 'useraccount#ordershow'
+  get '/useraccount/welcome' => 'useraccount#welcome'
   get '/useraccount/userorders' => 'useraccount#userorders'
   
-  
-  get '/useraccount/welcome' => 'useraccount#welcome'
   
   post '/wishlist/add/:id' => 'wishlistitems#add'
   get '/wishlist/add/:id' => 'wishlistitems#add'
@@ -62,7 +69,12 @@ Rails.application.routes.draw do
   delete '/wishlist/:id' => 'wishlistitems#destroy'
   
   get '/payment' => 'orders#pay'
+  post '/payment' => 'orders#pay'
+
   get '/shipped/:id' => 'orders#shipped'
+  
+ 
+  #get '/reviews/new/:id' => 'reviews#new'
 
 
  

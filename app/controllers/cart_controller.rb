@@ -129,6 +129,12 @@ end
        @cart = session[:cart] || {}
        @cart.each do | id, quantity |
            item = Item.find_by_id(id)
+           #update stock
+           quantity_instock = item.quantity_instock
+           quantity_sold = item.quantity_sold
+           item.update_attribute(:quantity_instock, quantity_instock - quantity)
+           item.update_attribute(:quantity_sold, quantity_sold + quantity)
+           #create order tiems
            @orderitem = @order.orderitems.build(:item_id => item.id, :title => item.title, :description => item.description, :quantity => quantity, :price => item.price)
            @orderitem.save
            
@@ -156,9 +162,7 @@ end
            
    end
    
-   def welcome
-       @cart = session[:cart]
-   end
+
 
 
 

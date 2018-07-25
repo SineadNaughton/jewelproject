@@ -26,15 +26,19 @@ class OrdersController < ApplicationController
   def edit
   end
   
-  
-  
-    #method for payment
   def pay
     #instance var called @order and equal it to the last order in the Order table can also filter by param as above
-    @order = Order.last
+    @order =Order.last
     #update the attribute
-    @order.update_attribute(:status, "Paid by User: #{current_user.username}")
+    @order.update_attribute(:status, "Paid by User: #{current_user.email}")
   end
+  
+  
+ 
+
+  
+
+  
   
   def shipped
         #instance variable to give it teh value of current order id
@@ -84,6 +88,7 @@ class OrdersController < ApplicationController
     end
   end
 
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -94,4 +99,5 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:order_date, :user_id, :status, :order_total, :action)
     end
+    
 end

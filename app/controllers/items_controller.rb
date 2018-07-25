@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def index
     action = params[:kind]
     if action=="newin" then
-      since = Date.today-1
+      since = Date.today-30
       @items = Item.where("created_at > ?", since)
     else 
     #if params["action"]
@@ -14,11 +14,17 @@ class ItemsController < ApplicationController
     #@items = Item.all
     @items = Item.where("category like ? OR collection like ?", action, action)
     end
+    
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    if @item.reviews.blank?
+      @average_review =0
+    else
+      @average_review = @item.reviews.average(:rating).round(2)
+    end
   end
 
   # GET /items/new
@@ -75,10 +81,13 @@ class ItemsController < ApplicationController
       
     
     #@item = Item.where("1=1")
-    #@items = Item.where("material like ? OR collection like ? OR category like ?", material, collection, category)
+    #@items = Item.where("material like ? OR collection likeS ? OR category like ?", material, collection, category)
   end
   
-     
+  def bestselling
+    @bestsellingitems = Item.all
+    @myVar = "some-stuff"
+  end
 
 
   # PATCH/PUT /items/1

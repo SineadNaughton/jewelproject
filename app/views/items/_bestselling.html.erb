@@ -1,0 +1,19 @@
+<div class="container-fluid"><!-- container to hold all products-->
+<% if @bestsellingitems == nil %>
+<% else %>
+<h1>Bestselling Products</h1>
+    <div class="row">
+         <% @bestsellingitems.limit(5).order(quantity_sold: :desc).each do |item| %>
+         <div class="col-lg-2">
+            <h4><%= item.title %></h4><!-- render title-->
+            <%= image_tag item.image.url (:medium) %>
+            <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
+        </div>
+      <% end %> 
+    </div>
+<%end%>
+</div>
+  
+
+
+

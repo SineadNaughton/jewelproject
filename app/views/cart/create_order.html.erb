@@ -12,6 +12,7 @@
     <div class="row">
         <table class="table">
             <% @total = 0 %>
+            <%=@order.id%>
             <% @orderitems.each do |id, quantity| %>
             <% item = Orderitem.find_by_id(id) %>
             <tr>
@@ -58,8 +59,9 @@
                   <!-- Specify details about the item that buyers will purchase. -->
                    <input type="hidden" name="business" value="sinead.m.naughton-facilitator@gmail.com">
                    <!-- pass order reference. -->
-                  <input type="hidden" name="item_name" value="JEWEL order No: <%= @order %> ">
+                  <input type="hidden" name="item_name" value="JEWEL order No: <%= @order.id %> ">
                   <!-- pass paymetn amount. -->
+                  <input type="hidden" name="invoice" value= "<%= @order.id %>">
                   <input type="hidden" name="amount" value="<%= @overall %>">
                   <!-- pass paymetn amount. -->
                   <input type="hidden" name="currency_code" value="EUR">

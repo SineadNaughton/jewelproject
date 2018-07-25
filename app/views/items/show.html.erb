@@ -30,10 +30,16 @@
         <%= submit_tag("Add to Cart") %>
         <% end %>
       
+        <%= link_to 'Add Review', new_item_review_path(@item), :class => "btn btn-secondary" %>
+      
       
 
       <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-secondary" %> 
       <%= link_to 'Back', items_path, :class => "btn btn-secondary" %>
+      <h2>Average Rating<%= @average_review %> (<%= @item.reviews.count %> reviews)</h2>
+      
+    
+      <%= render @item.reviews %>
     </div>
   </div>
 </div>  

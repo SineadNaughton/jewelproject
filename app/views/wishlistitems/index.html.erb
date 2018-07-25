@@ -27,8 +27,8 @@
         
 
 
-    
-        <td><%= link_to 'Remove', wishlist_path(@wishlistitem), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %></td>
+        <%#= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
+        <td><%= link_to 'Remove', "/wishlist/#{wishlistitem.id}", method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %></td>
         <td><a href = "/cart/<%= wishlistitem.item.id %>" class="btn btn-secondary">Add to cart</a></td>
        
       </tr>

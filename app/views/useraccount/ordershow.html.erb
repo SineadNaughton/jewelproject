@@ -1,3 +1,6 @@
+<div class="row justify-content-center">
+    <%= render 'useraccount/useraccountnav'%> 
+</div>
 <div class="container-fluid">
   <div class="row">
     <p><strong>Order date:</strong><%= @order.order_date %></p>
@@ -30,9 +33,8 @@
         <% subtotal= orderitem.price * orderitem.quantity %>
         <td><%= number_to_currency(subtotal, :unit => "€") %></td>
         <%= total += orderitem.price * orderitem.quantity %>
-        
-         <td><%= link_to 'Add Review', new_item_review_path(orderitem.item_id), :class => "btn btn-secondary" %></td>
-        
+    
+        <a href="/reviews/new/<%=orderitem.id%>">Review</a>
         
       </tr>
       <% end %>

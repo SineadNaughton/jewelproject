@@ -9,5 +9,9 @@ class UseraccountController < ApplicationController
         @orders = Order.where(user_id: current_user.id)
     end
     
+    def ordershow
+        @orderitems = Orderitem.where(order_id: params[:id])
+    end
+    
     
 end
