@@ -1,0 +1,16 @@
+<%= form_tag("", :method => "get") do %>
+<%= label_tag "Sort" %>
+<%= select_tag "sort", "<option value='price-asc'>PRICE-ASC</option><option value='price-desc'>PRICE-DESC</option><option value='newin'>NEW-IN</option>".html_safe %>
+<%= hidden_field_tag 'kind', params[:kind] %>
+<%= hidden_field_tag 'necklace', params[:necklace] %>
+<%= hidden_field_tag 'bracelet', params[:bracelet] %>
+<%= hidden_field_tag 'earring', params[:earring] %>
+<%= hidden_field_tag 'ring', params[:ring] %>
+<%= hidden_field_tag 'gold', params[:gold] %>
+<%= hidden_field_tag 'silver', params[:silver] %>
+<%= hidden_field_tag 'rose', params[:rose] %>
+<%= hidden_field_tag 'bohemian', params[:bohemian] %>
+<%= hidden_field_tag 'roman', params[:roman] %>
+<%= hidden_field_tag 'gemstone', params[:gemstone] %>
+<%= submit_tag("GO") %>
+<% end %>

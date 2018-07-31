@@ -1,3 +1,3 @@
-<%= form_tag("/search", :method => "post", :class => "form-inline rounded") do %>
-<%= text_field_tag :input, nil, class: "form-control" %><%# render a form in ruby that uses search route and post mthod%>
+<%= form_tag("/filter", :method => "get", :class => "form-inline rounded") do %>
+<%= text_field_tag :input, params[:input], class: "form-control" %><%# render a form in ruby that uses search route and post mthod%>
 <% end %>

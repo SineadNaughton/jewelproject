@@ -4,29 +4,33 @@
 
 
   
-  <div class="row">
+ <div class="row">
     
-          <div class="col-sm-4">
-            <h1>Products</h1>
-        <%= form_tag("", :method => "get") do %>
-        <%= select_tag "sort", "<option value='price-asc'>PRICE-ASC</option><option value='price-desc'>PRICE-DESC</option><option value='newin'>NEW-IN</option>".html_safe %>
-        <%= hidden_field_tag 'kind', params[:kind] %>
-        <%= submit_tag("GO") %>
-        <% end %>
+    <div class="col-sm-4">
+        <h1>Products</h1>
+        <%= render :partial => 'items/sort' %>
       </div>
   </div>
+
   <!--@start - body-->
 <div class="row">
   <div class="col-sm-3">
       <%= render :partial => 'layouts/filter'%>
   </div>
   <div class="col-sm-9">
+    <% if @items.length == 0 %>  
+        <div class="row">
+            <div class="col-sm-12">
+            <h2>no items found try searching again</h2>
+            </div>
+        </div>
+    <% else %>
     <div class="row">
     <% @items.each do |item| %>
       <!--product info-->
       <div class="col-sm-3"><!-- container to hold each product item-->
         
-        <a href='/items/<%=item.id%>'><%= image_tag item.image.url (:medium) %>></a>
+        <a href='/items/<%=item.id%>'><img src="<%=item.image.url (:medium)%>" class="img-thumbnail" /></a>
         <h6><%= item.title %></h6><!-- render title-->
         <p><%= number_to_currency(item.price, :unit => "€") %> </p>
       
@@ -45,7 +49,7 @@
     </div>
   </div>
 </div>
-    
+ <% end %>     
   <br>
 
 

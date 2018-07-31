@@ -1,13 +1,14 @@
 
-
+<div class="item-show-holder">
 <div class="container-fluid"> 
   <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-3">
-      <%= image_tag @item.image.url, :class => "item_image" %>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+      
+      <img src="<%=@item.image.url %>" class="img-fluid" />
     </div>
     <div class="col-sm-6">
-      <h1><%= @item.title %></h1>
+      <h4><%= @item.title %></h4>
       <p><strong>Description: </strong><%= @item.description %></p>
 
       <p>
@@ -37,8 +38,8 @@
       <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-secondary" %> 
       <% end %>
       <%= link_to 'Back', items_path, :class => "btn btn-secondary" %>
-      <h2>Average Rating<%= @average_review %> (<%= @item.reviews.count %> reviews)</h2>
-      
+      <h5>Average Rating<%= @average_review %> (<%= @item.reviews.count %> reviews)</h5>
+</div>      
     
       <%= render @item.reviews %>
     </div>

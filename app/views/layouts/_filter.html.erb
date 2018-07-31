@@ -1,26 +1,64 @@
-<%= form_tag("/filter", :method => "get") do %>
-<%#= label_tag(:material, "Material:" ) %>
-<%#= select_tag(:material, options_for_select([['Gold', 'Gold'], ['Silver', 'Silver'], ['Rose Gold', 'Rose Gold']])) %>
-<%#= label_tag(:collection, "Collection:" ) %>
-<%#= select_tag(:collection, options_for_select([['Bohemian', false ], ['Roman', false ], ['Gem', false ]])) %><br>
-<%= label_tag(:category, "Category:" ) %><br>
-Necklace<%= check_box_tag :category, 'Necklace', params[:category] == "Necklace"  %><br>
-Bracelet<%= check_box_tag :category, 'Bracelet', params[:category] == "Bracelet"  %><br>
-Ring<%= check_box_tag :category, 'Ring', params[:category] == "Ring"  %><br>
-
-<%= label_tag(:material, "Material:" ) %><br>
-
-Gold<%= check_box_tag "material", 'Gold', params[:material] == "Gold" %><br>
-Silver<%= check_box_tag "material", 'Silver', params[:material] == "Silver" %><br>
-Rose Gold<%= check_box_tag "material", 'Rose Gold', params[:material] == "Rose Gold"  %><br>
-
-<%= label_tag(:collection, "Collection:" ) %><br>
-Bohemian<%= check_box_tag :collection, 'Bohemian', params[:collection] == "Bohemian" %><br>
-Roman<%= check_box_tag :collection, 'Roman', params[:collection] == "Roman" %><br>
-Gem<%= check_box_tag :collection, 'Gem', params[:collection] == "Gem"  %><br>
+<div class="form-check">
+    <%= form_tag("/filter", :method => "get") do %>
 
 
 
 
-<%= submit_tag("Filter") %><%# render a form in ruby that uses search route and post mthod%>
-<% end %>
+<label><strong>Category</strong></label>    
+<div class="form-check">
+    <%= check_box_tag :necklace, '✓', params[:necklace] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:necklace, "Necklace", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :bracelet, '✓', params[:bracelet] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:bracelet, "Bracelet", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :earring, '✓', params[:earring] ==  "✓", :class => "form-check-input"  %>
+    <%= label_tag(:earring, "Earrings", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :ring, '✓', params[:ring] ==  "✓", :class => "form-check-input"  %>
+    <%= label_tag(:ring, "Ring", :class => "form-check-label" ) %>
+</div>
+
+
+    
+<label><strong>Material</strong></label>    
+<div class="form-check"> 
+    <%= check_box_tag :gold, '✓', params[:gold] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:gold, "Gold", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :silver, '✓', params[:silver] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:silver, "Silver", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :rose, '✓', params[:rose] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:rose, "Rose gold", :class => "form-check-label" ) %>
+</div>    
+    
+    
+<label><strong>Collection</strong></label>    
+<div class="form-check"> 
+    <%= check_box_tag :bohemian, '✓', params[:bohemian] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:bohemian, "Bohemian", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :roman, '✓', params[:roman] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:bohemian, "Roman", :class => "form-check-label" ) %>
+</div>
+<div class="form-check"> 
+    <%= check_box_tag :gemstone, '✓', params[:gemstone] == "✓" , :class => "form-check-input"  %>
+    <%= label_tag(:gemstone, "Gemstone", :class => "form-check-label" ) %>
+</div>
+
+
+
+
+    
+    <%= hidden_field_tag :input, params[:input] %>
+    <%= submit_tag("Filter") %><%# render a form in ruby that uses search route and post mthod%>
+    <% end %>
+</div>
+

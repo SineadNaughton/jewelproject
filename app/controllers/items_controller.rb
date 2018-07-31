@@ -22,14 +22,7 @@ class ItemsController < ApplicationController
     @items = Item.where("category like ? OR collection like ?", action, action)
     end
   
-    sort = params[:sort]
-    if sort == 'price-asc'
-        @items = @items.order("price asc")
-    elsif sort == 'price-desc'
-      @items = @items.order("price desc")
-    elsif sort == 'newin'
-      @items = @items.order("created_at asc")
-    end
+    sortitems 
     
   end
 
@@ -72,6 +65,17 @@ class ItemsController < ApplicationController
     end
   end
   
+  def sortitems
+        sort = params[:sort]
+    if sort == 'price-asc'
+        @items = @items.order("price asc")
+    elsif sort == 'price-desc'
+      @items = @items.order("price desc")
+    elsif sort == 'newin'
+      @items = @items.order("created_at asc")
+    end
+  end
+  
   def search
     input = "%#{params[:input]}%"
     @items = Item.where("title like ?", input)
@@ -80,28 +84,52 @@ class ItemsController < ApplicationController
   def filter
    # material = 
     #material.each do |type|
-      
-    material = "'%#{params[:material]}%'"
-    collection = "'%#{params[:collection]}%'"
-    category = "'%#{params[:category]}%'"
-    query = ""
-    if material != nil
-      query += " material like #{material}"
+    
+    if params[:input]==nil
+      searchinput = '%'
+    else
+      searchinput = "%#{params[:input]}%"
     end
-    if 
-      collection != nil
-      query +=" AND collection like #{collection}"
-    end
-    if 
-      category != nil
-      query +=" AND category like #{category}"
+     
+    if params[:necklace] != "✓"  && params[:bracelet] != "✓"  && params[:ring] != "✓" && params[:earring] != "✓" 
+      necklace = '%'
+      bracelet = '%'
+      ring = '%'
+      earring = '%'
+    else 
+      necklace = params[:necklace] == "✓" ? 'necklace' : 'xxxxxxxx' 
+      bracelet = params[:bracelet] == "✓"  ? 'bracelet' : 'xxxxxxxx' 
+      ring = params[:ring] == "✓"  ? 'ring' : 'xxxxxxxx' 
+      earring = params[:earring] == "✓"  ? 'earring' : 'xxxxxxxx' 
+    
     end
     
-    @items = Item.where(query)
-      
+    if params[:gold] != "✓"  && params[:silver] != "✓" && params[:rose] != "✓"
+      gold = '%'
+      silver = '%'
+      rose = '%'
+    else 
+      gold = params[:gold] == "✓"  ? 'gold' : 'xxxxxxxx' 
+      silver = params[:silver] == "✓"  ? 'silver' : 'xxxxxxxx'
+      rose = params[:rose] == "✓"  ? 'rose' : 'xxxxxxxx'
+    end
+    if params[:bohemian] != "✓" && params[:roman] != "✓" && params[:gemstone] != "✓" 
+      bohemian = '%'
+      roman = '%'
+      gemstone = '%'
+    else 
+      bohemian = params[:bohemian] == "✓"  ? 'bohemian' : 'xxxxxxxx' 
+      roman = params[:roman] == "✓"  ? 'roman' : 'xxxxxxxx'
+      gemstone = params[:gemstone] == "✓"  ? 'gemstone' : 'xxxxxxxx'
+    end
     
-    #@item = Item.where("1=1")
-    #@items = Item.where("material like ? OR collection likeS ? OR category like ?", material, collection, category)
+   @items= Item.where("title like ? OR description like ?", searchinput, searchinput)
+   @items = @items.where("category like ? OR category like ? OR category like ? OR category like ? ", necklace, bracelet, earring, ring)
+   @items = @items.where("material like ? OR material like ? OR material like ?", gold, silver, rose)
+   @items = @items.where("collection like ? OR collection like ? OR collection like ?", bohemian, roman, gemstone)
+  
+   sortitems
+   @recentview = Recentlyviewed.where(user_id: current_user.id)
   end
   
 
