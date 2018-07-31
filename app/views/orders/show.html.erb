@@ -31,8 +31,11 @@
         <td><%= number_to_currency(subtotal, :unit => "€") %></td>
         <%= total += orderitem.price * orderitem.quantity %>
         
+        <% if Review.exists?(:user_id => current_user.id) %>
+        <td><%= link_to 'See your Reviews', useraccount_reviews_path,  :class => "btn btn-secondary" %></td>
+         <% else %>
          <td><%= link_to 'Add Review', new_item_review_path(orderitem.item_id), :class => "btn btn-secondary" %></td>
-        
+        <% end %>
         
       </tr>
       <% end %>

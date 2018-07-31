@@ -1,37 +1,57 @@
+<% if current_user.try(:adminrole?) %>
 <%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
+<% end %>
 
-  <div class="container-fluid"><!-- container to hold all products-->
-    
-    <h1>Products</h1>
-    <div class="row">
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-8">
-        <div class="row">
-         <% @items.each do |item| %>
-          <!--product info-->
-          <div class="col-med-4" "col-sm-8"><!-- container to hold each product item-->
-            <h4><%= item.title %></h4><!-- render title-->
-            <%= image_tag item.image.url (:medium) %>
-            <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
-        
-             <!--product actions-->
-             <!-- button to add item to cart -->
-            <a href = "/cart/<%= item.id %>" class="btn btn-secondary">Add to cart</a>
-            <a href = "/wishlist/add/<%= item.id %>" class="btn btn-secondary">Add to wishlist</a>
+
   
-           <%= link_to 'Show', item, :class => "btn btn-secondary", :role => "button" %>
-  		    <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-secondary", :role => "button" %>
-          <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
-        </div>
-      <% end %> 
+  <div class="row">
+    
+          <div class="col-sm-4">
+            <h1>Products</h1>
+        <%= form_tag("", :method => "get") do %>
+        <%= select_tag "sort", "<option value='price-asc'>PRICE-ASC</option><option value='price-desc'>PRICE-DESC</option><option value='newin'>NEW-IN</option>".html_safe %>
+        <%= hidden_field_tag 'kind', params[:kind] %>
+        <%= submit_tag("GO") %>
+        <% end %>
       </div>
+  </div>
+  <!--@start - body-->
+<div class="row">
+  <div class="col-sm-3">
+      <%= render :partial => 'layouts/filter'%>
+  </div>
+  <div class="col-sm-9">
+    <div class="row">
+    <% @items.each do |item| %>
+      <!--product info-->
+      <div class="col-sm-3"><!-- container to hold each product item-->
+        
+        <a href='/items/<%=item.id%>'><%= image_tag item.image.url (:medium) %>></a>
+        <h6><%= item.title %></h6><!-- render title-->
+        <p><%= number_to_currency(item.price, :unit => "€") %> </p>
+      
+         <!--product actions-->
+         <!-- button to add item to cart -->
+        <a href = "/cart/<%= item.id %>" class="btn btn-secondary">Add to cart</a>
+        <a href = "/wishlist/add/<%= item.id %>" class="btn btn-secondary">Add to wishlist</a>
+        </br>
+      
+        <% if current_user.try(:adminrole?) %>
+          <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-secondary", :role => "button" %>
+          <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
+        <% end %>
+      </div>
+    <% end %> 
     </div>
   </div>
+</div>
     
   <br>
 
-<%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
+
+
+<div class="container-fluid"><!-- container to hold all products-->
+<%= render :partial => 'useraccount/recentview', :controller => "useraccount", :action => "recentview" %>
 </div>
   
 

@@ -21,9 +21,8 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/regisatrations#new'
     get 'signin', to: 'users/session#new'
     delete 'signout', to: 'users/session#destroy'
-    
-  
   end
+  
   post '/search' => 'items#search'
   get '/search' => 'items#search'
   post '/filter' => 'items#filter'
@@ -54,14 +53,16 @@ Rails.application.routes.draw do
   get '/cart/remove/:id' => 'cart#remove'
   get '/cart/updatequantity/:id' => 'cart#update_quantity'
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
-  get '/cart/total' => 'cart#cart_header_info'
+ # get '/cart/total' => 'cart#cart_header_info'
   get '/checkout' => 'cart#index'
   post '/checkout' => 'cart#create_order'
   
  #get '/useraccount/userorder/:id' => 'useraccount#ordershow'
   get '/useraccount/welcome' => 'useraccount#welcome'
   get '/useraccount/userorders' => 'useraccount#userorders'
-  
+  get '/admin' => 'useraccount#admin_welcome'
+  get 'users' => 'useraccount#admin_users'
+  get '/useraccount/reviews' => 'useraccount#user_reviews'
   
   post '/wishlist/add/:id' => 'wishlistitems#add'
   get '/wishlist/add/:id' => 'wishlistitems#add'
@@ -73,8 +74,7 @@ Rails.application.routes.draw do
 
   get '/shipped/:id' => 'orders#shipped'
   
- 
-  #get '/reviews/new/:id' => 'reviews#new'
+
 
 
  

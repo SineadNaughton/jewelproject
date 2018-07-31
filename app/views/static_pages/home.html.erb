@@ -1,7 +1,37 @@
 <% provide(:title, "Home") %>
-<h1>JEWEL</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
-<%= render 'layouts/filter' %>
+<div class="row">
+    <div class="col-sm-12">
+        <img src="/app-banner-ring.jpg" class="img-fluid" alt="Responsive image">    
+    </div>
+</div>
 
+<div class="row">
+    <div class="offset-sm-3 col-sm-2">
+        <a href="/items?kind=necklace">
+            <img src="/app-thumbnail-necklace.jpg" alt="Necklace" class="img-thumbnail">  
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <a href="/items?kind=bohemian">
+        <img src="/app-thumbnail-collection.jpg" alt="Collection" class="img-thumbnail">
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <a href="/items?kind=bracelet">
+        <img src="/app-thumbnail-bracelet.jpg" alt="Bracelet" class="img-thumbnail">
+        </a>
+    </div>
+</div>
 
-<%= render :partial => 'items/bestselling', :controller => "items", :action => "bestselling" %>
+<div class="row">
+    <div class="offset-sm-2 col-sm-8">
+        <hr style="width: 100%; color: whitesmoke; height: 1px; background-color:whitesmoke; margin:2vw 0" />        
+    </div>
+    <div class="col-sm-12">
+        <%= render :partial => 'items/bestselling', :controller => "items", :action => "bestselling" %>
+    </div>
+    
+</div>    
+
+<!--/views/static_pages/home.html.erb -->
+

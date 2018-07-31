@@ -1,13 +1,17 @@
 <div class="container-fluid"><!-- container to hold all products-->
 <% if @bestsellingitems == nil %>
 <% else %>
-<h1>Bestselling Products</h1>
+<h5 class="text-center">Bestselling Products</h5>
     <div class="row">
+        <div class="col-sm-1"></div>
          <% @bestsellingitems.limit(5).order(quantity_sold: :desc).each do |item| %>
-         <div class="col-lg-2">
-            <h4><%= item.title %></h4><!-- render title-->
-            <%= image_tag item.image.url (:medium) %>
-            <p><strong>Price <%= number_to_currency(item.price, :unit => "€") %></strong> </p>
+         <div class="col-sm-2">
+            <div class="card">
+                <img src="<%= item.image.url (:medium) %>" class="card-img-top jw-img-bestselling" />
+              <div class="card-body">
+                <a href="/items/<%= item.id %>" class="btn btn-block btn-secondary"><%= number_to_currency(item.price, :unit => "€") %></a>
+              </div>
+            </div>
         </div>
       <% end %> 
     </div>

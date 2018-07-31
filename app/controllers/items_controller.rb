@@ -1,9 +1,16 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin_user, only: [:edit, :update, :destroy, :create, :new]
   # GET /items
   # GET /items.json
   def index
+    @recentview = []
+    if current_user != nil
+      @recentview = Recentlyviewed.where(user_id: current_user.id)  
+    end
+    
+    @items =  []
+    
     action = params[:kind]
     if action=="newin" then
       since = Date.today-30
@@ -14,6 +21,15 @@ class ItemsController < ApplicationController
     #@items = Item.all
     @items = Item.where("category like ? OR collection like ?", action, action)
     end
+  
+    sort = params[:sort]
+    if sort == 'price-asc'
+        @items = @items.order("price asc")
+    elsif sort == 'price-desc'
+      @items = @items.order("price desc")
+    elsif sort == 'newin'
+      @items = @items.order("created_at asc")
+    end
     
   end
 
@@ -21,9 +37,13 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     if @item.reviews.blank?
-      @average_review =0
+      @average_review = 0
     else
       @average_review = @item.reviews.average(:rating).round(2)
+    end
+    if current_user != nil
+      @viewed = @item.recentlyvieweds.build(:user_id => current_user.id)
+      @viewed.save
     end
   end
 
@@ -84,10 +104,7 @@ class ItemsController < ApplicationController
     #@items = Item.where("material like ? OR collection likeS ? OR category like ?", material, collection, category)
   end
   
-  def bestselling
-    @bestsellingitems = Item.all
-    @myVar = "some-stuff"
-  end
+
 
 
   # PATCH/PUT /items/1
@@ -124,4 +141,14 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:title, :description, :price, :image_url, :category, :material, :collection, :quantity_instock, :quantity_sold, :image)
     end
+    
+  
+    def admin_user
+     if current_user.adminrole?
+      flash.now[:success] = "Admin Access Granted"
+     else
+      redirect_to root_path
+     end
+    end
+   
 end

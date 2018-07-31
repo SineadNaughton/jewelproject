@@ -1,0 +1,18 @@
+<div class="container-fluid"><!-- container to hold all products-->
+<% if @recentview == nil || @recentview.count == 0 %>
+<% else %>
+<h5>Recently Viewed</h5>
+    <div class="row">
+        <div class="col-sm-1"></div>
+         <% @recentview.limit(5).order(created_at: :desc).each do |item| %>
+         <div class="col-lg-2">
+            
+            <a href='/items/<%=item.id%>'><%= image_tag item.item.image.url (:thumb) %></a>
+            <h6><%= item.item.title %></h6><!-- render title-->
+            <p><%= number_to_currency(item.item.price, :unit => "€") %></p>
+        </div>
+      <% end %> 
+      
+    </div>
+<%end%>
+</div>

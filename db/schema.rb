@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_060636) do
+ActiveRecord::Schema.define(version: 2018_07_31_091419) do
 
   create_table "items", force: :cascade do |t|
     t.string "title"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 2018_07_25_060636) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "recentlyvieweds", force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_recentlyvieweds_on_item_id"
+    t.index ["user_id"], name: "index_recentlyvieweds_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "item_id"
     t.integer "user_id"
@@ -78,6 +87,9 @@ ActiveRecord::Schema.define(version: 2018_07_25_060636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
+    t.boolean "admin"
+    t.boolean "aminrole", default: false
+    t.boolean "adminrole", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

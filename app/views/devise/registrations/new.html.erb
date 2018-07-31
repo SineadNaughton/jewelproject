@@ -7,10 +7,19 @@
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true, autocomplete: "off" %>
   </div>
-
+  
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+
+    
+<%= radio_button_tag(:adminrole, true) %>
+<%= label_tag(:true, "Admin") %>
+<%= radio_button_tag(:adminrole, false) %>
+<%= label_tag(:false, "Customer") %>
   </div>
 
   <div class="field">

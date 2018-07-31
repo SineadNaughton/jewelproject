@@ -5,4 +5,5 @@ class Item < ApplicationRecord
     
     has_many:wishlistitems
     has_many:reviews
+    has_many:recentlyvieweds
 end

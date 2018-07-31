@@ -1,14 +1,38 @@
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+  <a class="navbar-brand" href="/"><img class="img-thumbnail" src="/app-logo.png" ></a>
+    <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href = "/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href = "/contact">Contact Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href = "/delivery">Delivery & Returns</a>
+      </li>
+    </ul>
+  </div> 
+  <%= render 'layouts/search' %>
+</nav>
+
 <footer class="foot">
-<h1>Im the Footer</h1>
-
-<a href="/orders" class="btn btn-secondary">View Orders</a>
 
 
 
-<% if user_signed_in? %>
-<%= link_to 'Update Profile', edit_user_registration_path, :class => "btn btn-secondary" %>
 
+<%# if user_signed_in? %>
+<%#= link_to 'Update Profile', categories_path, :class => "btn btn-secondary" %>
+<%#= link_to 'Catergories', edit_user_registration_path, :class => "btn btn-secondary" %>
 
-<% end %>
+<%# end %>
 
 </footer>
+
+<!--/views/layouts/_footer.html.erb -->

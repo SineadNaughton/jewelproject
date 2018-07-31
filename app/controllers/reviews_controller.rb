@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
+ 
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :find_item
   
@@ -88,6 +90,18 @@ class ReviewsController < ApplicationController
       @item = Item.find(params[:item_id])
     end
     
+    def check_edit_rights
+      if review.user_id == current_user.id
+        flash.now[:success] = "Edit Access Granted"
+      else
+        redirect_to root_path
+      end
+    end
+    
+    
+
+end
+    
 
     
-end
+

@@ -45,12 +45,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
    #   devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation)}
   #  end
   
-  #def configure_permitted_parameters
-  #  devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :password])
- # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :password, :adminrole])
+  end
   
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) << :username
+      devise_parameter_sanitizer.for(:sign_up) << :username 
     end
 
   # If you have extra params to permit, append them to the sanitizer.

@@ -103,6 +103,7 @@ end
  
   #method to display cart 
   def index
+   @recentview = Recentlyviewed.where(user_id: current_user.id)
     if session[:cart] then
       @cart = session[:cart]
     else
