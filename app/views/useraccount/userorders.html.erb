@@ -13,7 +13,6 @@
   <thead>
     <tr>
       <th>Order date</th>
-      <th>User</th>
       <th>Status</th>
       <th>Total</th>
       <th colspan="3"></th>
@@ -26,8 +25,7 @@
         <td><%= order.order_date %></td>
         <td><%= order.status %></td>
         <td><%= order.order_total %></td>
-        <td><%= link_to '/useraccount/userorders/', order %></td>
-        
+        <td><a href="/useraccount/userorders/<%=order.id%>">See Order</a></td>
        
 
       </tr>

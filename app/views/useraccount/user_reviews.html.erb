@@ -12,10 +12,10 @@
 <table>
   <thead>
     <tr>
-      <th>Review date</th>
-      <th>User</th>
-      <th>Status</th>
-      <th>Total</th>
+      <th>Review Title</th>
+      <th>Description</th>
+      <th>Item</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@
         <td><%= review.title %></td>
         <td><%= review.description %></td>
         <td><%= review.item.title %></td>
-        <td><%= link_to 'Edit', edit_item_review_path(review.item, review) %></td>
+        <td><%= link_to 'Edit', edit_item_review_path(review.item, review), :class =>"btn btn-secondary" %></td>
         
        
 

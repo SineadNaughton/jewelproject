@@ -1,3 +1,9 @@
 <%= form_tag("/filter", :method => "get", :class => "form-inline rounded") do %>
-<%= text_field_tag :input, params[:input], class: "form-control" %><%# render a form in ruby that uses search route and post mthod%>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" ><i class="fa fa-search"></i>  </span>
+      </div>
+      <%= text_field_tag :input, params[:input], class: "form-control" %><%# render a form in ruby that uses search route and post mthod%>
+    </div>
 <% end %>
+

@@ -1,3 +1,4 @@
+
 <% if @cart.empty? %>
     <p>There are no items in your cart</p>
 <% end %>
@@ -43,20 +44,9 @@
     </div>
     <div class="col-sm-4 col-md-2">
       <%= form_tag("/cart/updatequantity/#{item.id}", :method => "get") do %>
-      <%= label_tag(:qty, "Qty: ") %>
-      <%= text_field_tag(:qty, quantity, :class => "col-sm-2" )%>
-      <%= submit_tag("Update") %>
-      <% end %>    
-      <%= form_tag("/cart/updatequantity/#{item.id}", :method => "get") do %>
-      <%= select_tag :qty, "<option value='1'>1</option><option value='2'>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option>".html_safe %>
+      <%= select_tag :qty, options_for_select([ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ], quantity ) %>
       <%= submit_tag("Update") %>
       <% end %> 
-      <%= form_tag("/cart/updatequantity/#{item.id}", :method => "get") do %>
-      <%= select_tag :qty, options_for_select([ "1", "2" ], :qty) %>
-      <%= select_tag("products_per_page", options_for_select([["20",20],["50",50],["100",100]],params[:per_page].to_i),{:name => "products_per_page"} ) %>
-      <%= submit_tag("Update") %>
-     <% end %>
-   
    
     </div>
     <div class="col-md-2">
@@ -89,7 +79,15 @@
   
 
   
-  <%= render :partial => 'useraccount/recentview' %>
+<div class="row">
+    <div class="offset-sm-2 col-sm-8">
+        <hr style="width: 100%; color: whitesmoke; height: 1px; background-color:whitesmoke; margin:2vw 0" />        
+    </div>
+    <div class="col-sm-12">
+        <%= render :partial => 'items/bestselling', :controller => "items", :action => "bestselling" %>
+    </div>
+    
+</div>  
 
 </div>
 

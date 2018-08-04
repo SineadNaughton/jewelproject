@@ -3,43 +3,49 @@ class ItemsController < ApplicationController
   before_action :admin_user, only: [:edit, :update, :destroy, :create, :new]
   # GET /items
   # GET /items.json
+  
   def index
-
+    #make bestselling items availalbe
     @bestsellingitems = Item.all
+    #make bestselling items availalbe
     @recentview = []
     if current_user != nil
       @recentview = Recentlyviewed.where(user_id: current_user.id)  
     end
     
+    #make items availalbe based on nav selection
     @items =  []
-    
     @action = params[:kind]
+    
     if @action=="newin" then
       since = Date.today-30
       @items = Item.where("created_at > ?", since)
     else 
-      #if params["action"]
-      #end
-      #@items = Item.all
       @items = Item.where("category like ? OR collection like ?", @action, @action)
     end
-  
+    #call sort method
     sortitems 
-    
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    #show reviews
+    @reviews=Review.where(item_id: @item.id)
     if @item.reviews.blank?
       @average_review = 0
     else
       @average_review = @item.reviews.average(:rating).round(2)
     end
+    
+    #add a recently viewed item if user logged in
     if current_user != nil
-      @viewed = @item.recentlyvieweds.build(:user_id => current_user.id)
-      @viewed.save
-    end
+      @user = User.find(current_user.id)
+      if Recentlyviewed.where(user_id: current_user.id, item_id: @item.id).count==0
+        @viewed = @item.recentlyvieweds.build(:user_id => current_user.id)
+        @viewed.save
+      end
+   end
   end
 
   # GET /items/new
@@ -159,10 +165,13 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-     @Item = Item.find(params[:id]) rescue nil
+     
+     @item = Item.find(params[:id]) rescue nil
      if @item == nil
        redirect_to :action => :index
      end
+     
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

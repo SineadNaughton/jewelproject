@@ -1,8 +1,7 @@
-only admin can see me!
+
 
 <% if current_user.try(:adminrole?) %>
-<a href="/orders" class="btn btn-secondary">View Orders</a>
-<% end %>
+
 
 <div class="container-fluid account-container">
     <div class="row justify-content-center">
@@ -10,9 +9,11 @@ only admin can see me!
         <div class="col-12 text-center">
             <a href="/orders" class="btn btn-secondary">View Orders</a>
             <a href="/users" class="btn btn-secondary">Users</a>
-            <a href="/useraccount/userorders" class="btn btn-secondary">Reviews</a>
-           <%= link_to 'Update Profile', edit_user_registration_path, :class => "btn btn-secondary" %>
+            <a href="/reviews" class="btn btn-secondary">Reviews</a>
         </div>
         
     </div>
 </div>
+
+
+<% end %>

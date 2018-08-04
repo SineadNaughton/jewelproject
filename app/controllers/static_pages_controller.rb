@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
-    #session[:cart] = nil #empties cart/ clears session to stop an error
+    session[:cart] = nil #empties cart/ clears session to stop an error
 
   end
 

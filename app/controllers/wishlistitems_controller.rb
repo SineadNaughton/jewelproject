@@ -3,6 +3,7 @@ class WishlistitemsController < ApplicationController
    before_action :authenticate_user!
   
   def add
+    
       id = params[:id]
        #get user, build order, save order
        @user = User.find(current_user.id)
@@ -25,7 +26,7 @@ class WishlistitemsController < ApplicationController
   def destroy
     @wishlistitem.destroy
     respond_to do |format|
-      format.html { redirect_to wishlistitems_url, notice: 'Wishlist item was successfully destroyed.' }
+      format.html { redirect_to wishlist_url, notice: 'Wishlist item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -5,14 +5,14 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="container">
+
   <h2><%=current_user.username%>'s Wishlist</h2>
               
   <table class="table">
     <thead>
       <tr>
-        <th></th>
         <th>Item</th>
+        <th></th>
         <th>Price</th>
       </tr>
     </thead>
@@ -22,15 +22,16 @@
       <tr>
       
         <td><%= image_tag wishlistitem.item.image.url (:thumb) %></td>
-        <td><%= wishlistitem.item.title %></td>
-        <td><%= wishlistitem.item.price %></td>
+        <td><%= link_to wishlistitem.item.title, items_path(wishlistitem.item.title) %></td>
+        
+        <td><%= number_to_currency(wishlistitem.item.price, :unit => "€") %></td>
         
 
 
         <%#= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %>
         
         <td><a href = "/wishlist/<%= wishlistitem.id %>" class="btn btn-secondary", data-method="delete"><i class="fa fa-trash-alt"></i></a></td>
-        <td><a href = "/cart/<%= wishlistitem.item.id %>" class="btn btn-secondary"><i class="fa fa-cart-plus"></i></a></td>
+        <td><a href = "/cart/fromwishlist/<%= wishlistitem.item.id %>" class="btn btn-secondary"><i class="fa fa-cart-plus"></i></a></td>
       
        
       </tr>
@@ -38,6 +39,5 @@
   </tbody>
 </table>
 
-<br>
 
 <%#= link_to 'New Wishlist Item', newwishlist_item_path %>

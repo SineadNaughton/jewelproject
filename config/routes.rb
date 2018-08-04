@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :orders do
     resources:orderitems
   end
+    get '/shipped/:id' => 'orders#shipped'
   
   
   #user routes
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
  
   
   #cart routes
-    get 'cart/index'
+  #get 'cart/index'
  
   get '/cart' => 'cart#index'
   
@@ -51,9 +52,11 @@ Rails.application.routes.draw do
   get '/cart/remove/:id' => 'cart#remove'
   get '/cart/updatequantity/:id' => 'cart#update_quantity'
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
+  get '/cart/fromwishlist/:id' => 'cart#add_from_wishlist'
 
-  get '/checkout' => 'cart#index'
+  get '/checkout' => 'cart#create_order'
   post '/checkout' => 'cart#create_order'
+  get '/checkout/complete' => 'orders#pay'
   
   get '/useraccount/welcome' => 'useraccount#welcome'
   get '/useraccount/userorders' => 'useraccount#userorders'
@@ -61,6 +64,10 @@ Rails.application.routes.draw do
   
   get '/admin' => 'useraccount#admin_welcome'
   get '/users' => 'useraccount#admin_users'
+  get '/upgradeadmin/:id' => 'useraccount#upgrade_admin'
+  get '/downgradeadmin/:id' => 'useraccount#downgrade_admin'
+  delete '/removeuser/:id' => 'useraccount#remove'
+  get '/reviews' => 'useraccount#all_reviews'
   get '/useraccount/reviews' => 'useraccount#user_reviews'
   
   post '/wishlist/add/:id' => 'wishlistitems#add'
@@ -72,7 +79,7 @@ Rails.application.routes.draw do
   get '/payment' => 'orders#pay'
   post '/payment' => 'orders#pay'
 
-  get '/shipped/:id' => 'orders#shipped'
+
   
 
 

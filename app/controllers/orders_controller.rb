@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :admin_user, only: [:index, :show, :edit, :update, :destroy, :create, :new]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :shipped]
+  before_action :admin_user, only: [:index, :show, :edit, :update, :destroy, :create, :new, :shipped]
 
   # GET /orders
   # GET /orders.json
@@ -32,9 +32,11 @@ class OrdersController < ApplicationController
   
   def pay
     #instance var called @order and equal it to the last order in the Order table can also filter by param as above
-    @order =Order.last
+    @bestsellingitems = Item.all
+    @order = Order.last
     #update the attribute
-    @order.update_attribute(:status, "Paid by User: #{current_user.email}")
+    @order.update_attribute(:status, "Paid by User: #{current_user.username}")
+    @orderitems = Orderitem.where(order_id: @order.id)
   end
   
 
@@ -42,8 +44,12 @@ class OrdersController < ApplicationController
         #instance variable to give it teh value of current order id
     #Order.where(order_id: params[:id]).update_all(:status "Dispatched") remove this code
     #update the attribute remove this code
-   @order.update_attribute(:status, "Dispatched")
-  User.where(name: "Robbie").update_all(name: "Rob")
+    
+    @order.update_attribute(:status, "Dispatched")
+    redirect_to :action => :index
+    
+    
+    #User.where(name: "Robbie").update_all(name: "Rob")
   end
 
   # POST /orders

@@ -1,49 +1,49 @@
 
 <div class="item-show-holder">
-<div class="container-fluid"> 
-  <div class="row">
+  <div class="container-fluid"> 
+    <div class="row">
 
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5">
-      
-      <img src="<%=@item.image.url %>" class="img-fluid" />
-    </div>
-    <div class="col-sm-6">
-      <h4><%= @item.title %></h4>
-      <p><strong>Description: </strong><%= @item.description %></p>
-
-      <p>
-        <strong>Price:</strong>
-        <%= @item.price %>
-      </p>
-
-      <p>
-        <strong>Collection:</strong>
-        <%= @item.collection %>
-      </p>
-           <p>
-      <strong>Collection:</strong>
-        <%= @item.material %>
-      </p>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-5">
+        <img src="<%=@item.image.url %>" class="img-fluid" />
+      </div>
+      <div class="col-sm-6">
+        <h4><%= @item.title %></h4>
+        <h6>Average Rating: <%= @average_review %> (<%= @item.reviews.count %> reviews)</h6>
+        <p><strong>Description: </strong><%= @item.description %></p>
+        <p> <strong>Price:</strong><%= number_to_currency(@item.price, :unit => "€") %></p>
+        <p><strong>Collection:</strong><%= @item.collection %></p>
+        <p><strong>Collection:</strong><%= @item.material %></p>
       
         <%= form_tag("/cart/addbyquantity/#{@item.id}", :method => "get") do %>
-        <%= label_tag(:qty, "Qty: ") %>
-        <%= text_field_tag(:qty, 1) %>
-        <%= submit_tag("Add to Cart") %>
+          <%= label_tag(:qty, "Qty: ") %>
+          <%= text_field_tag(:qty, 1) %>
+          <%= button_tag :submit do %>
+            <i class="fa fa-cart"></i>
+          <% end %>
         <% end %>
-      
+        <a href = "/wishlist/add/<%= @item.id %>" class="btn btn-secondary"><i class="fa fa-heart"></i></a>
         
-      
-      
-      <% if current_user.try(:adminrole?) %>
-      <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-secondary" %> 
-      <% end %>
-      <%= link_to 'Back', items_path, :class => "btn btn-secondary" %>
-      <h5>Average Rating<%= @average_review %> (<%= @item.reviews.count %> reviews)</h5>
-</div>      
+        
+       
+       
+        <% if current_user.try(:adminrole?) %>
+          <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-secondary" %> 
+        <% end %>
+       
+        <br>
+        <br>
+        <hr>
+        
+        <%= render :partial => 'reviews/review' %>
+
+        
+        
+      </div>      
     
-      <%= render @item.reviews %>
+      <%#= render @item.reviews %>
     </div>
+
   </div>
 </div>  
   
@@ -54,4 +54,3 @@
 
    
    
-   </div>

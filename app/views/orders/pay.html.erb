@@ -1,3 +1,52 @@
-<h1>Thank you, you have paid for your order!</h1>
+<h1>Thank you for your order!</h1>
+
+
+        <table class="table">
+            <% @total = 0 %>
+            Order Reference: <%=@order.id%>
+            <% @orderitems.each do |id, quantity| %>
+            <% item = Orderitem.find_by_id(id) %>
+            <tr>
+                <td><%= item.title %></td>
+                <td><%= item.quantity %></td>
+                <td><%= number_to_currency(item.price, :unit => "€") %></td>
+                <td><%= number_to_currency(item.price * item.quantity, :unit => "€") %></td>
+            </tr>
+            <% gTotal = (item.quantity * item.price) %>
+            <% @total += gTotal %>
+            <% end %>
+            <% shipping = 5.95 %>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Order Total: <%= number_to_currency(@total, :unit => "€") %></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Shipping: <%= number_to_currency(shipping, :unit => "€") %></td>
+            </tr>
+                <% @overall = @total + shipping %>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Grand Total: <%= number_to_currency(@overall, :unit => "€") %></td>
+            </tr>
+        </table>
+
 
 <h1>You may also like..</h1>
+<div class="row">
+    <div class="offset-sm-2 col-sm-8">
+        <hr style="width: 100%; color: whitesmoke; height: 1px; background-color:whitesmoke; margin:2vw 0" />        
+    </div>
+    <div class="col-sm-12">
+        <%= render :partial => 'items/bestselling', :controller => "items", :action => "bestselling" %>
+    </div>
+    
+</div>  
+
+

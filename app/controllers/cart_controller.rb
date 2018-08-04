@@ -4,6 +4,8 @@ class CartController < ApplicationController
 
 #method to add item to the cart from teh item index page - always adds 1
  def add
+  @removewishlistitem
+   @hi
    #get product id
    id = params[:id]
    
@@ -24,6 +26,14 @@ class CartController < ApplicationController
    
    redirect_to :action => :index
    
+ end
+ 
+ def add_from_wishlist
+  id = params[:id]
+  @removewishlistitem = Wishlistitem.where(user_id: current_user.id, item_id: id)
+  @removewishlistitem[0].destroy
+  @hi="hiiii"
+  add
  end
  
 #method to add item to a cart from teh show item page - qty must be specified
@@ -142,10 +152,8 @@ end
        end
        @orders = Order.all
        @orderitems = Orderitem.where(order_id: Order.last)
-       
-
-       
-
+       #clear cart once order created
+       session[:cart] = nil
    end
  
    
@@ -157,7 +165,7 @@ end
             item = Item.find_by_id(id)
             ordertotal += item.price * quantity
         end
-        ordertotal
+        ordertotal = ordertotal + 5.95
        end
        
            

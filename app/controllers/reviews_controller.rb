@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
  
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :find_item
-  before_action :before_action, only: [:destroy]
+  before_action :admin_user, only: [:destroy]
   
 
   # GET /reviews

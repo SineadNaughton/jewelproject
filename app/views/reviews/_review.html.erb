@@ -1,11 +1,27 @@
 
-<p>User: <%=review.user.username %></p>
-<p>Rating: <%= review.rating%></p>
-<p>Comments: <%=review.description%></p>
 
-<% if user_signed_in? %>
-    <% if review.user_id == current_user.id %>
-        <%= link_to "Edit", edit_item_review_path(review.item, review) %> 
-        <%= link_to "Delete", item_review_path(review.item, review), :method => :delete, data: {confirm: "Are you sure"} %> 
-    <% end %>
-<% end %>
+
+
+
+
+    
+    <h5>Reviews</h5>
+
+  
+    <% @reviews.each do |review| %>
+  
+    <p><strong>User: </strong><%= review.user.username %></p>
+  
+  
+    <p><strong>Rating: </strong><%= review.rating %> </p>
+  
+    <p><strong>Title: </strong><%= review.title %></p>
+ 
+    <p> <strong>Description: </strong><%= review.description %></p>
+    <br>
+  
+  <% end %>
+
+    
+
+    

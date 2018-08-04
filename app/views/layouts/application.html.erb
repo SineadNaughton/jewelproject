@@ -17,15 +17,22 @@
   <body>
     <div class="container-fluid">
       
+
+      
        <%= render 'layouts/header'%>
        
        
        <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-
+       <% end %>
+       
+      <div style="min-height:40vw">
+        
       <%= yield %>
       
+      </div>
+      
+      <br />
       <%= render 'layouts/footer'%>
       
     </div>

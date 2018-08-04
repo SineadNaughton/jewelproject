@@ -1,29 +1,24 @@
 <div class="row justify-content-center">
     <%= render 'useraccount/useraccountnav'%> 
 </div>
-<div class="container-fluid">
-  <div class="row">
-    <p><strong>Order date:</strong><%= @order.order_date %></p>
-  </div>
-  <div class="row">
-    <p><strong>User:</strong><%= @order.user %></p>
-  </div>
-  <div class="row">
-    <p><strong>Status:</strong><%= @order.status %></p>
-  </div>
-  <div class="row">
-    <%= link_to 'Edit', edit_order_path(@order), :class => "btn btn-secondary" %> 
-    <%= link_to 'Back', orders_path, :class => "btn btn-secondary" %>
-  </div>
+
 
 
 <!--show items in the order-->
 
-  <div class="row">
-    <h1>Items in this order</h1>
-  </div>
-  <div class="row">
+
+
     <table class ="table">
+      <thead>
+        <h1>Items in this order</h1>
+      </thead>
+      
+      <thead>
+        <th>Item</th>
+        <th>Item Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </thead>
       <% total = 0 %>
       <% @orderitems.each do |orderitem| %>
       <tr>
@@ -32,7 +27,7 @@
         <td><%= orderitem.quantity %></td>
         <% subtotal= orderitem.price * orderitem.quantity %>
         <td><%= number_to_currency(subtotal, :unit => "€") %></td>
-        <%= total += orderitem.price * orderitem.quantity %>
+        
 
         <% if Review.exists?(:user_id => current_user.id) %>
         <td><%= link_to 'See your Reviews', useraccount_reviews_path,  :class => "btn btn-secondary" %></td>
@@ -46,10 +41,17 @@
         <td></td>
         <td></td>
         <td></td>
-        <td>Order Total: <%= number_to_currency(total, :unit => "€") %></td>
+        <% shipping = 5.95 %>
+        <td>Shipping : <%= number_to_currency(shipping, :unit => "€") %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Order Total: <%= number_to_currency(@order.order_total, :unit => "€") %></td>
       </tr>
     </table>
-  </div>
+ 
   <div class="row">
     <!--button link to change status method-->
     <a href="/shipped/<%= @order.id %>" class="btn btn-secondary">Mark as Shipped</a>
