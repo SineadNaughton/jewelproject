@@ -8,13 +8,13 @@
         <li class="list-inline-item"><%=link_to  ((current_user.username || "Customer") + "'s Account |"), useraccount_welcome_path %></li>
       
         <li class="list-inline-item"><%= link_to 'Log Out |', destroy_user_session_path, :method => :delete %></li>
-        <li class="list-inline-item"><%=link_to 'Wishlist |', '/wishlist' %></li>
+        <li class="list-inline-item"><a href= '/wishlist'><i class="fa fa-heart"></i></a>  |</li>
         <% else %>
         <li class="list-inline-item"><%=link_to 'Register |', new_user_registration_path %></li>
         <li class="list-inline-item"><%=link_to 'Sign In |', new_user_session_path %></li>
         <% end %>
         
-        <li class="list-inline-item"><%=link_to 'Cart', '/cart' %></li>
+        <li class="list-inline-item"><a href= '/cart'><i class="fa fa-shopping-cart"></i></a></li>
         <%= render :partial => 'cart/total', :controller => "cart", :action => "cart_header_info" %>
         
       </ul>
@@ -25,7 +25,7 @@
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-  <a class="navbar-brand" href="/"><img class="img-thumbnail" src="/app-logo.png" ></a>
+  <a class="navbar-brand" href="/"><img class="jw-nav-logo" src="/app-logo.png" ></a>
     
   <!-- Navbar links -->
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -46,22 +46,14 @@
       <li class="nav-item">
         <a class="nav-link" href = "/items?kind=earring&earring=✓">Earrings</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href = "/items?kind=bohemian">Collection</a>
-      </li>
-      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Collections</a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="/items?kind=bohemian/">Bohemian</a>
-        <a class="dropdown-item" href="/items?kind=roman/">Roman</a>
-        <a class="dropdown-item" href="/items?kind=gem/">Gemstone</a>
+        <a class="dropdown-item" href="/items?kind=bohemian&bohemian=✓">Bohemian</a>
+        <a class="dropdown-item" href="/items?kind=roman&roman=✓">Roman</a>
+        <a class="dropdown-item" href="/items?kind=gemstone&gemstone=✓">Gemstone</a>
       </div>
     </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href = "/items">Products</a>
-      </li>
     </ul>
   </div> 
   <%= render 'layouts/search' %>

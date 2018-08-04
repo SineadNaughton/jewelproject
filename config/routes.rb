@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'wishlistitems/add'
-  get 'wishlistitems/remove'
-  get 'wishlistitems/index'
+
   #orders routes
   resources :orders do
     resources:orderitems
@@ -12,6 +10,7 @@ Rails.application.routes.draw do
   devise_for :users do
     resources:orders
   end
+  
   devise_for :controllers => {
    :registration => "users/registration",
     :sessions => "users/sessions",
@@ -32,7 +31,6 @@ Rails.application.routes.draw do
     resources :reviews
   end
   
-  get '/items/bestselling' => 'items#bestselling'
   
   
   #static page roots
@@ -53,21 +51,23 @@ Rails.application.routes.draw do
   get '/cart/remove/:id' => 'cart#remove'
   get '/cart/updatequantity/:id' => 'cart#update_quantity'
   get '/cart/addbyquantity/:id' => 'cart#add_by_quantity'
- # get '/cart/total' => 'cart#cart_header_info'
+
   get '/checkout' => 'cart#index'
   post '/checkout' => 'cart#create_order'
   
- #get '/useraccount/userorder/:id' => 'useraccount#ordershow'
   get '/useraccount/welcome' => 'useraccount#welcome'
   get '/useraccount/userorders' => 'useraccount#userorders'
+  get '/useraccount/userorders/:id' => 'useraccount#ordershow'
+  
   get '/admin' => 'useraccount#admin_welcome'
-  get 'users' => 'useraccount#admin_users'
+  get '/users' => 'useraccount#admin_users'
   get '/useraccount/reviews' => 'useraccount#user_reviews'
   
   post '/wishlist/add/:id' => 'wishlistitems#add'
   get '/wishlist/add/:id' => 'wishlistitems#add'
   get '/wishlist' => 'wishlistitems#index'
   delete '/wishlist/:id' => 'wishlistitems#destroy'
+
   
   get '/payment' => 'orders#pay'
   post '/payment' => 'orders#pay'

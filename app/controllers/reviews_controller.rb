@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
  
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :find_item
+  before_action :before_action, only: [:destroy]
   
 
   # GET /reviews
@@ -95,6 +96,15 @@ class ReviewsController < ApplicationController
         flash.now[:success] = "Edit Access Granted"
       else
         redirect_to root_path
+      end
+    end
+
+    #this method checks it the current user is admin - it is called before allowing access to certain areas/methods
+    def admin_user
+      if user_signed_in? && current_user.adminrole?
+        flash.now[:success] = "Admin Access Granted"
+      else
+       redirect_to root_path
       end
     end
     

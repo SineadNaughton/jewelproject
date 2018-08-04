@@ -28,8 +28,8 @@
           
              <!--product actions-->
              <!-- button to add item to cart -->
-            <a href = "/cart/<%= item.id %>" class="btn btn-secondary">Add to cart</a>
-            <a href = "/wishlist/add/<%= item.id %>" class="btn btn-secondary">Add to wishlist</a>
+            <a href = "/cart/<%= item.id %>" class="btn btn-secondary"><i class="fa fa-cart-plus"></i></a>
+            <a href = "/wishlist/add/<%= item.id %>" class="btn btn-secondary"><i class="fa fa-heart"></i></a>
             </br>
           
             <% if current_user.try(:adminrole?) %>
@@ -46,6 +46,12 @@
 
 
 
-<div class="container-fluid"><!-- container to hold all products-->
-<%= render :partial => 'useraccount/recentview', :controller => "useraccount", :action => "recentview" %>
-</div>
+<% if user_signed_in? %>
+    <div class="container-fluid"><!-- container to hold all products-->
+        <%= render :partial => 'useraccount/recentview', :controller => "useraccount", :action => "recentview" %>
+    </div>
+<% else %>
+    <div class="col-sm-12">
+        <%= render :partial => 'items/bestselling', :controller => "items", :action => "bestselling" %>
+    </div>
+<% end %>

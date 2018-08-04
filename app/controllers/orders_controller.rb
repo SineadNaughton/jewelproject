@@ -1,10 +1,12 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:index, :show, :edit, :update, :destroy, :create, :new]
 
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.all
+    
   end
 
   def user_orders
@@ -14,7 +16,9 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    
     @orderitems = Orderitem.where(order_id: params[:id])
+ 
   end
 
   # GET /orders/new
@@ -33,13 +37,7 @@ class OrdersController < ApplicationController
     @order.update_attribute(:status, "Paid by User: #{current_user.email}")
   end
   
-  
- 
 
-  
-
-  
-  
   def shipped
         #instance variable to give it teh value of current order id
     #Order.where(order_id: params[:id]).update_all(:status "Dispatched") remove this code
@@ -98,6 +96,16 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:order_date, :user_id, :status, :order_total, :action)
+    end
+    
+    #this method checks it the current user is admin - it is called before allowing access to certain areas/methods
+    def admin_user
+      if user_signed_in? && current_user.adminrole?
+     
+      flash.now[:success] = "Admin Access Granted"
+     else
+      redirect_to root_path
+     end
     end
     
 end

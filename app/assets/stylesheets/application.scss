@@ -14,21 +14,33 @@
  *= require_self
  */
 
- @import "bootstrap";
-
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 .item_image{
     width: 100%;
 }
 
+a{
+    color: inherit;
+}
 a:visited{
     text-decoration: none;
- 
+    color: grey;
+    background-color: inherit;
+}
+
+a:hover{
+   text-decoration: none; 
+   color: inherit;
+   background-color: inherit;
 }
 
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
     color: white;
+    margin: 2%;
 }
 
 .account-container{
@@ -39,8 +51,9 @@ a:visited{
     float: left;
 }
 
-.jw-img-bestselling{
-    height:75px;
+.jw-nav-logo{
+    background-color:white;
+    border-radius:0.25rem !important;
 }
 
 .item-show-holder{

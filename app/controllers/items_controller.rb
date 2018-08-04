@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
+
+    @bestsellingitems = Item.all
     @recentview = []
     if current_user != nil
       @recentview = Recentlyviewed.where(user_id: current_user.id)  
@@ -11,15 +13,15 @@ class ItemsController < ApplicationController
     
     @items =  []
     
-    action = params[:kind]
-    if action=="newin" then
+    @action = params[:kind]
+    if @action=="newin" then
       since = Date.today-30
       @items = Item.where("created_at > ?", since)
     else 
-    #if params["action"]
-    #end
-    #@items = Item.all
-    @items = Item.where("category like ? OR collection like ?", action, action)
+      #if params["action"]
+      #end
+      #@items = Item.all
+      @items = Item.where("category like ? OR collection like ?", @action, @action)
     end
   
     sortitems 
@@ -65,16 +67,6 @@ class ItemsController < ApplicationController
     end
   end
   
-  def sortitems
-        sort = params[:sort]
-    if sort == 'price-asc'
-        @items = @items.order("price asc")
-    elsif sort == 'price-desc'
-      @items = @items.order("price desc")
-    elsif sort == 'newin'
-      @items = @items.order("created_at asc")
-    end
-  end
   
   def search
     input = "%#{params[:input]}%"
@@ -123,13 +115,18 @@ class ItemsController < ApplicationController
       gemstone = params[:gemstone] == "✓"  ? 'gemstone' : 'xxxxxxxx'
     end
     
-   @items= Item.where("title like ? OR description like ?", searchinput, searchinput)
-   @items = @items.where("category like ? OR category like ? OR category like ? OR category like ? ", necklace, bracelet, earring, ring)
-   @items = @items.where("material like ? OR material like ? OR material like ?", gold, silver, rose)
-   @items = @items.where("collection like ? OR collection like ? OR collection like ?", bohemian, roman, gemstone)
-  
-   sortitems
-   @recentview = Recentlyviewed.where(user_id: current_user.id)
+     @items= Item.where("title like ? OR description like ?", searchinput, searchinput)
+     @items = @items.where("category like ? OR category like ? OR category like ? OR category like ? ", necklace, bracelet, earring, ring)
+     @items = @items.where("material like ? OR material like ? OR material like ?", gold, silver, rose)
+     @items = @items.where("collection like ? OR collection like ? OR collection like ?", bohemian, roman, gemstone)
+    
+     sortitems
+     
+     @bestsellingitems = Item.all
+     @recentview = []
+     if current_user != nil
+      @recentview = Recentlyviewed.where(user_id: current_user.id)  
+     end
   end
   
 
@@ -162,7 +159,10 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      @item = Item.find(params[:id])
+     @Item = Item.find(params[:id]) rescue nil
+     if @item == nil
+       redirect_to :action => :index
+     end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -170,13 +170,24 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:title, :description, :price, :image_url, :category, :material, :collection, :quantity_instock, :quantity_sold, :image)
     end
     
-  
+    #this method checks it the current user is admin - it is called before allowing access to certain areas/methods
     def admin_user
-     if current_user.adminrole?
-      flash.now[:success] = "Admin Access Granted"
-     else
-      redirect_to root_path
-     end
+      if user_signed_in? && current_user.adminrole?
+        flash.now[:success] = "Admin Access Granted"
+      else
+        redirect_to root_path
+      end
+    end
+    
+    def sortitems
+        sort = params[:sort]
+      if sort == 'price-asc'
+          @items = @items.order("price asc")
+      elsif sort == 'price-desc'
+        @items = @items.order("price desc")
+      elsif sort == 'newin'
+        @items = @items.order("created_at asc")
+      end
     end
    
 end
