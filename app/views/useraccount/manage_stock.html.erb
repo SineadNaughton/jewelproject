@@ -1,0 +1,40 @@
+<% provide(:title, "Admin Stock") %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Items</h1>
+<%= link_to 'New Product', new_item_path, :class => "btn btn-secondary", :role => "button" %>
+<table class="table">
+  
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th></th>
+      <th>Item Id</th>
+      <th>Created</th>
+      <th>In Stock</th>
+      <th>Sold</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= image_tag item.image.url (:thumb) %></td>
+        <td><%= item.title %></td>
+        <td><%= item.id %></td>
+        <td><%= item.created %></td>
+        <td><%= item.quantity_instock %></td>
+        <td><%= item.quantity_sold %></td>
+        
+        <td><a href="/items/<%= order.id %>" class="btn btn-secondary"><i class="fa fa-eye"></i></a></td>
+        <td><a href="/items/<%= item.id %>/edit" class="btn btn-secondary"><i class="fa fa-edit"></i></a></td>
+
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-secondary", :role => "button" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

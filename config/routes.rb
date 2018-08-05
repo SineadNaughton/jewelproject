@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get 'signup', to: 'users/regisatrations#new'
     get 'signin', to: 'users/session#new'
     delete 'signout', to: 'users/session#destroy'
+ 
   end
   
   post '/search' => 'items#search'

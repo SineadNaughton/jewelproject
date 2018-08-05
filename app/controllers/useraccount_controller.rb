@@ -25,7 +25,7 @@ class UseraccountController < ApplicationController
     end
     
     def admin_welcome
-        
+        @items = Item.all
     end
     
     def admin_users
@@ -44,26 +44,30 @@ class UseraccountController < ApplicationController
     end    
     
     def remove
-      @user.destroy
-      respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-       redirect_to :action => :admin_users
+        @user.destroy
+        respond_to do |format|
+          format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+          format.json { head :no_content }
+        end
+     
     end  
     
     def all_reviews
         @reviews = Review.all
     end
     
+    def manage_stock
+        @items = Item.all
+    end
     
 private
+ #this method checks it the current user is admin - it is called before allowing access to certain areas/methods
     def admin_user
-        if current_user.adminrole?
-            flash.now[:success] = "Admin Access Granted"
-        else
-            redirect_to root_path
-        end
+      if user_signed_in? && current_user.adminrole?
+        flash.now[:success] = "Admin Access Granted"
+      else
+       redirect_to root_path
+      end
     end
  
     def set_user

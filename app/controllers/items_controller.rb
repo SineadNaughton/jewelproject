@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
         @viewed = @item.recentlyvieweds.build(:user_id => current_user.id)
         @viewed.save
       end
-   end
+    end
   end
 
   # GET /items/new
@@ -73,22 +73,26 @@ class ItemsController < ApplicationController
     end
   end
   
-  
+  #uses input from a form text field to create a cariable that is a seach wildcard.  This is used to query the title and description attributes.
+  #query resutls are stored in @items
   def search
     input = "%#{params[:input]}%"
-    @items = Item.where("title like ?", input)
+    @items = Item.where("title like ? OR description like ?", input, input)
   end
   
+  
+  #filters items in index
   def filter
-   # material = 
-    #material.each do |type|
-    
+    #if there is no search parameter just use an empty wildcard, else use the search param wildcard
     if params[:input]==nil
       searchinput = '%'
     else
       searchinput = "%#{params[:input]}%"
     end
-     
+    #a series of conditional statemetns to check what attributes to query for
+    #if nothing in an attribute section is ticked then equal all of them to an empty wildcard so everything is returned
+    #else use a turnery operator to check if th variable will have the value of an item string or 'xxxxxxxx'(which will always return nothing) 
+    #this is based on whether or not the query param has the value of "✓" 
     if params[:necklace] != "✓"  && params[:bracelet] != "✓"  && params[:ring] != "✓" && params[:earring] != "✓" 
       necklace = '%'
       bracelet = '%'
@@ -99,9 +103,7 @@ class ItemsController < ApplicationController
       bracelet = params[:bracelet] == "✓"  ? 'bracelet' : 'xxxxxxxx' 
       ring = params[:ring] == "✓"  ? 'ring' : 'xxxxxxxx' 
       earring = params[:earring] == "✓"  ? 'earring' : 'xxxxxxxx' 
-    
     end
-    
     if params[:gold] != "✓"  && params[:silver] != "✓" && params[:rose] != "✓"
       gold = '%'
       silver = '%'
@@ -121,13 +123,16 @@ class ItemsController < ApplicationController
       gemstone = params[:gemstone] == "✓"  ? 'gemstone' : 'xxxxxxxx'
     end
     
+    #finally use the variable dertermined above to get the query results - stored in @items
      @items= Item.where("title like ? OR description like ?", searchinput, searchinput)
      @items = @items.where("category like ? OR category like ? OR category like ? OR category like ? ", necklace, bracelet, earring, ring)
      @items = @items.where("material like ? OR material like ? OR material like ?", gold, silver, rose)
      @items = @items.where("collection like ? OR collection like ? OR collection like ?", bohemian, roman, gemstone)
     
+    #call sort method - default price asc
      sortitems
      
+     #give access to bestselling and recently viewed tables
      @bestsellingitems = Item.all
      @recentview = []
      if current_user != nil

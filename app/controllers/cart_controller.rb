@@ -28,6 +28,7 @@ class CartController < ApplicationController
    
  end
  
+ #add a wishlist item to the cart, it calls the method above and also removes the item fromt eh wishlsit
  def add_from_wishlist
   id = params[:id]
   @removewishlistitem = Wishlistitem.where(user_id: current_user.id, item_id: id)
@@ -36,7 +37,7 @@ class CartController < ApplicationController
   add
  end
  
-#method to add item to a cart from teh show item page - qty must be specified
+#method to add item to a cart from the show item page - qty must be specified
  def add_by_quantity
    #get product id
    id = params[:id]
@@ -68,7 +69,8 @@ class CartController < ApplicationController
         
    end
  end
- #method to change teh quantity of a particular item in the cart
+ 
+ #method to change the quantity of a particular item in the cart
  def update_quantity
      id = params[:id]
      cart = session[:cart]

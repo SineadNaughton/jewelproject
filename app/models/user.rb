@@ -8,10 +8,10 @@ class User < ApplicationRecord
       param.require(:user).permit(:user_id, :email, :username, :password)
   end
         
-  has_many:orders
-  has_many:wishlistitems
-  has_many:reviews
-  has_many:recentlyvieweds
+  has_many:orders, dependent: :destroy
+  has_many:wishlistitems, dependent: :destroy
+  has_many:reviews, dependent: :destroy
+  has_many:recentlyvieweds, dependent: :destroy
   
 
 end

@@ -1,3 +1,5 @@
+<% provide(:title, "Order") %>
+
 <div class="row justify-content-center">
     <%= render 'useraccount/useraccountnav'%> 
 </div>
@@ -29,7 +31,7 @@
         <td><%= number_to_currency(subtotal, :unit => "€") %></td>
         
 
-        <% if Review.exists?(:user_id => current_user.id) %>
+        <% if Review.exists?(:user_id => current_user.id, :item_id => orderitem.item_id) %>
         <td><%= link_to 'See your Reviews', useraccount_reviews_path,  :class => "btn btn-secondary" %></td>
          <% else %>
          <td><%= link_to 'Add Review', new_item_review_path(orderitem.item_id), :class => "btn btn-secondary" %></td>
@@ -52,8 +54,5 @@
       </tr>
     </table>
  
-  <div class="row">
-    <!--button link to change status method-->
-    <a href="/shipped/<%= @order.id %>" class="btn btn-secondary">Mark as Shipped</a>
-  </div>
+
 </div>

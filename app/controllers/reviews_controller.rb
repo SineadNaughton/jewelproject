@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
-    #set item it of @review to current item id
+    #set item id of @review to current item id
     @review.item_id = @item.id
     @review.user_id = current_user.id
    
@@ -109,7 +109,6 @@ class ReviewsController < ApplicationController
     end
     
     
-
 end
     
 

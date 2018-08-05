@@ -1,6 +1,7 @@
 <%= form_tag("", :method => "get") do %>
 <%= label_tag "Sort" %>
-<%= select_tag "sort", "<option value='price-asc'>PRICE-ASC</option><option value='price-desc'>PRICE-DESC</option><option value='newin'>NEW-IN</option>".html_safe %>
+
+<%= select_tag :sort, options_for_select([ ["NEW IN", "newin"], ["PRICE ASC", "price-asc"], ["PRICE DESC", "price-desc"] ], params[:sort] ) %>
 <%= hidden_field_tag 'kind', params[:kind] %>
 <%= hidden_field_tag 'necklace', params[:necklace] %>
 <%= hidden_field_tag 'bracelet', params[:bracelet] %>

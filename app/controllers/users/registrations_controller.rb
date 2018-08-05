@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       super
     end
 
-   # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   #  def configure_sign_up_params
@@ -52,6 +52,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) << :username 
     end
+    
+    
+     
+
 
   # If you have extra params to permit, append them to the sanitizer.
    # def configure_account_update_params
